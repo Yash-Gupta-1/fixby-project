@@ -1,0 +1,14 @@
+.email {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.email .box {
+  height: 100%;
+}
+
+.box a {
+  font-size: 1.4rem;
+}

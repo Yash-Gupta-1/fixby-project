@@ -1,0 +1,467 @@
+import React, { useState } from 'react';
+import './SellForm.css';
+import '../Utility.css'
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import Form from 'react-bootstrap/Form'
+import * as yup from 'yup';
+import {
+    FormControl, FormLabel, HStack, RadioGroup, Radio, Select, Input, Alert, AlertTitle, AlertDescription, AlertIcon, Box, Textarea, Heading, Text
+} from "@chakra-ui/react"
+import { db, storage } from '../firebase';
+import firebase from "firebase";
+import { useSelector } from 'react-redux';
+import { selectUser } from '../features/userSlice';
+import MetaDecorator from '../Components/MetaDecorator';
+import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
+import HouseOutlinedIcon from '@material-ui/icons/HouseOutlined';
+import { Spinner } from "@chakra-ui/react"
+
+const schema = yup.object().shape({
+    purpose: yup.string().required(),
+    types: yup.string().required(),
+    listed: yup.string().required(),
+    builtup: yup.string().required(),
+})
+
+const SellForm = () => {
+    const user = useSelector(selectUser)
+    const [listedBy, setListedBy] = useState('');
+    const [userName, setUserName] = useState(user.displayName);
+    const [userNumber, setUserNumber] = useState('');
+    const [purpose, setPurpose] = useState('');
+    const [type, setType] = useState('');
+    const [bhkInfo, setBhkInfo] = useState('');
+    const [bathrooms, setBathrooms] = useState('');
+    const [furnishing, setFurnishing] = useState('');
+    const [parking, setParking] = useState('');
+    const [builtupArea, setBuiltupArea] = useState('');
+    const [floorNo, setFloorNo] = useState('');
+    const [title, setTitle] = useState('');
+    const [discription, setDiscription] = useState('');
+    const [city, setCity] = useState('');
+    const [address1, setAddress1] = useState('');
+    const [address2, setAddress2] = useState('');
+    const [locality, setLocality] = useState('');
+    const [price, setPrice] = useState('');
+    const [imageFirst, setImageFirst] = useState('');
+    const [imageSecond, setImageSecond] = useState('');
+    const [imageThird, setImageThird] = useState('');
+    const [imageFourth, setImageFourth] = useState('');
+    const [imageFifth, setImageFifth] = useState('');
+    const [published, setPublished] = useState(false);
+    const [spin1, setSpin1] = useState(false);
+    const [spin2, setSpin2] = useState(false);
+    const [spin3, setSpin3] = useState(false);
+    const [spin4, setSpin4] = useState(false);
+    const [spin5, setSpin5] = useState(false);
+    const [loading, setLoading] = useState(false);
+    // const { register, handleSubmit, formState: { errors } } = useForm({
+    //     resolver: yupResolver(),
+    // });
+    console.log(user);
+
+
+    const handleUpload = (e) => {
+        e.preventDefault()
+        setLoading(true)
+        db.collection("propertyData").add({
+            listedBy: listedBy,
+            userName: userName,
+            userNumber: userNumber,
+            userEmail: user.email,
+            purpose: purpose,
+            type: type,
+            bhkInfo: bhkInfo,
+            bathrooms: bathrooms,
+            furnishing: furnishing,
+            parking: parking,
+            builtupArea: builtupArea,
+            floorNo: floorNo,
+            title: title,
+            discription: discription,
+            city: city,
+            address1: address1,
+            address2: address2,
+            locality: locality,
+            price: price,
+            img1: imageFirst,
+            img2: imageSecond,
+            img3: imageThird,
+            img4: imageFourth,
+            img5: imageFifth,
+            currentUserId: user.uid,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+
+        setTimeout(() => {
+            setPublished(true)
+            setLoading(false)
+        }, 2000)
+
+        setInterval(() => {
+            setPublished(false)
+        }, 6000)
+
+        setPurpose("")
+        setListedBy("")
+        setType("")
+        setBhkInfo("")
+        setBathrooms("")
+        setFurnishing("")
+        setBuiltupArea("")
+        setParking("")
+        setFloorNo("")
+        setTitle("")
+        setDiscription("")
+        setPrice("")
+        setImageFirst("")
+        setImageSecond("")
+        setImageThird("")
+        setImageFourth("")
+        setImageFifth("")
+    };
+
+
+    const handleChangeFirst = async (e) => {
+        setSpin1(true)
+        if (e.target.files[0]) {
+            const file = e.target.files[0];
+            const storageRef = storage.ref();
+            const fileRef = storageRef.child(`images/${file.name}`);
+            await fileRef.put(file);
+            setImageFirst(await fileRef.getDownloadURL());
+            setSpin1(false)
+        }
+    };
+
+    const handleChangeSecond = async (e) => {
+        setSpin2(true)
+        if (e.target.files[0]) {
+            const file = e.target.files[0];
+            const storageRef = storage.ref();
+            const fileRef = storageRef.child(`images/${file.name}`);
+            await fileRef.put(file);
+            setImageSecond(await fileRef.getDownloadURL());
+            setSpin2(false)
+        }
+    };
+
+    const handleChangeThird = async (e) => {
+        setSpin3(true)
+        if (e.target.files[0]) {
+            const file = e.target.files[0];
+            const storageRef = storage.ref();
+            const fileRef = storageRef.child(`images/${file.name}`);
+            await fileRef.put(file);
+            setImageThird(await fileRef.getDownloadURL());
+            setSpin3(false)
+        }
+    };
+
+    const handleChangeFourth = async (e) => {
+        setSpin4(true)
+        if (e.target.files[0]) {
+            const file = e.target.files[0];
+            const storageRef = storage.ref();
+            const fileRef = storageRef.child(`images/${file.name}`);
+            await fileRef.put(file);
+            setImageFourth(await fileRef.getDownloadURL());
+            setSpin4(false)
+        }
+    };
+
+    const handleChangeFifth = async (e) => {
+        setSpin5(true)
+        if (e.target.files[0]) {
+            const file = e.target.files[0];
+            const storageRef = storage.ref();
+            const fileRef = storageRef.child(`images/${file.name}`);
+            await fileRef.put(file);
+            setImageFifth(await fileRef.getDownloadURL());
+            setSpin5(false)
+        }
+    };
+
+    return (
+        <div className="sellform">
+            <MetaDecorator title="fixxcap - Sell or Rent Your Property" description="This page available for developer" />
+
+            <form onSubmit={handleUpload}>
+                <div className="personalDetail">
+                    <Heading className="h2 center" size="md" mt="10">Personal Details</Heading>
+
+                    <FormControl marginTop="5" isRequired>
+                        <FormLabel>Listed By</FormLabel>
+                        <Select variant="filled" placeholder="Select profile" name="listedby" value={listedBy} onChange
+                            ={(e) => setListedBy(e.target.value)} required>
+                            <option>Owner</option>
+                            <option>Builder</option>
+                            <option>Agent</option>
+                        </Select>
+                    </FormControl>
+
+                    <FormControl marginTop="5" isRequired>
+                        <FormLabel>Your Name</FormLabel>
+                        <Input variant="filled" name="userName" type="text" value={userName} onChange
+                            ={(e) => setUserName(e.target.value)} placeholder="Type your Name" required />
+                    </FormControl>
+
+                    <FormControl marginTop="5" isRequired>
+                        <FormLabel>Phone Number</FormLabel>
+                        <Input variant="filled" name="userNumber" type="phone" value={userNumber} onChange
+                            ={(e) => setUserNumber(e.target.value)} placeholder="Type your Number" required />
+                    </FormControl>
+
+                </div >
+
+                <div className="propertyDetails">
+                    <Heading className="h2 center" size="md" mt="10">Property Details</Heading>
+
+                    <FormControl marginTop="5" as="fieldset" isRequired>
+                        <FormLabel as="legend">Purpose</FormLabel>
+                        <RadioGroup defaultValue="">
+                            <HStack display="flex" alignItems="center" spacing="24px" name="purpose" value={purpose} onChange={(e) => setPurpose(e.target.value)} required>
+                                <div className="btnOutline">
+                                    <Radio value="Sale">Sale</Radio>
+                                </div>
+                                <div className="btnOutline">
+                                    <Radio value="Rent">Rent</Radio>
+                                </div>
+                            </HStack>
+                        </RadioGroup>
+                    </FormControl>
+
+                    <FormControl marginTop="5" isRequired>
+                        <FormLabel>Type</FormLabel>
+                        <Select variant="filled" name="type" placeholder="Select property type" value={type} onChange
+                            ={(e) => setType(e.target.value)} required>
+                            <option>House</option>
+                            <option>Flats</option>
+                            <option>Land</option>
+                            <option>Villa</option>
+                            <option>Farm House</option>
+                        </Select>
+                        {/* <Input type="floorNo" value={type} onChange
+                                    ={(e) => setType(e.target.value)} placeholder="Exp-(House, flat, )" /> */}
+                    </FormControl>
+
+                    <FormControl marginTop="5" isRequired>
+                        <FormLabel>BHK</FormLabel>
+                        <Select variant="filled" name="bhkinfo" placeholder="BHK Detail" value={bhkInfo} onChange
+                            ={(e) => setBhkInfo(e.target.value)}>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>4 +</option>
+                        </Select>
+                    </FormControl>
+
+                    <FormControl marginTop="5" >
+                        <FormLabel>Bathrooms</FormLabel>
+                        <Select variant="filled" name="bathrooms" placeholder="No. of Bathrooms" value={bathrooms} onChange
+                            ={(e) => setBathrooms(e.target.value)}>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>4 +</option>
+                        </Select>
+                    </FormControl>
+
+
+                    <FormControl marginTop="5">
+                        <FormLabel>Furnishing</FormLabel>
+                        <Select variant="filled" name="furnishing" placeholder="Furnishing Type" value={furnishing} onChange
+                            ={(e) => setFurnishing(e.target.value)}>
+                            <option>Furnished</option>
+                            <option>Semi-Furnished</option>
+                            <option>Unfurnished</option>
+                        </Select>
+                    </FormControl>
+
+                    <FormControl marginTop="5">
+                        <FormLabel>Parking</FormLabel>
+                        <Select variant="filled" name="bathrooms" placeholder="Parking Avaibility" value={parking} onChange
+                            ={(e) => setParking(e.target.value)}>
+                            <option>Open</option>
+                            <option>Close</option>
+                        </Select>
+                    </FormControl>
+
+                    <FormControl marginTop="5" isRequired>
+                        <FormLabel>Builtup Area (in gaj)</FormLabel>
+                        <Input variant="filled" name="builtupArea" type="text" value={builtupArea} onChange
+                            ={(e) => setBuiltupArea(e.target.value)} placeholder="Exp: 100" required />
+                    </FormControl>
+
+                    <FormControl marginTop="5">
+                        <FormLabel>Floor No</FormLabel>
+                        <Input variant="filled" name="floorNo" type="text" value={floorNo} onChange
+                            ={(e) => setFloorNo(e.target.value)} placeholder="No. of floors" />
+                    </FormControl>
+
+                    <FormControl marginTop="5" isRequired>
+                        <FormLabel>Title</FormLabel>
+                        <Input variant="filled" type="text" value={title} onChange
+                            ={(e) => setTitle(e.target.value)} placeholder="Title for you post" required />
+                    </FormControl>
+
+                    <FormControl marginTop="5" isRequired>
+                        <FormLabel>Discription</FormLabel>
+                        <Textarea variant="filled" type="text" value={discription} onChange
+                            ={(e) => setDiscription(e.target.value)} placeholder="Discription about your property" required />
+                    </FormControl>
+                </div>
+
+                <div className="propertyLocation">
+                    <Heading className="h2 center" size="md" mt="5">Property Location</Heading>
+
+                    <FormControl marginTop="5" id="title" isRequired>
+                        <FormLabel>City</FormLabel>
+                        <Input variant="filled" name="city" type="text" value={city} onChange
+                            ={(e) => setCity(e.target.value)} placeholder="City" required />
+                    </FormControl>
+
+                    <FormControl marginTop="5" id="title" isRequired>
+                        <FormLabel>Address 1</FormLabel>
+                        <Input variant="filled" name="address1" type="text" value={address1} onChange
+                            ={(e) => setAddress1(e.target.value)} placeholder="House No & Street No" required />
+                    </FormControl>
+
+                    <FormControl marginTop="5" id="title" >
+                        <FormLabel>Address 2</FormLabel>
+                        <Input variant="filled" name="address2" type="text" value={address2} onChange
+                            ={(e) => setAddress2(e.target.value)} placeholder="Address & Landmark" />
+                    </FormControl>
+
+                    <FormControl marginTop="5" id="title" isRequired>
+                        <FormLabel>Locality</FormLabel>
+                        <Input variant="filled" name="locality" type="text" value={locality} onChange
+                            ={(e) => setLocality(e.target.value)} placeholder="Locality" required />
+                    </FormControl>
+                </div>
+
+                <div className="propertyPriceandPhotos">
+
+                    <Heading className="h2 center" size="md" mt="5">Price</Heading>
+
+                    <FormControl marginTop="5" isRequired>
+                        <FormLabel>Price</FormLabel>
+                        <Input variant="filled" name="price" type="text" value={price} onChange
+                            ={(e) => setPrice(e.target.value)} placeholder="Price in Rupees" required />
+                    </FormControl>
+
+
+                    <div className="sellorrentPics mt4">
+                        <div className="sellorrentPics_Top">
+                            <Heading className="h2 center" size="md" mt="20">Photos</Heading>
+                            <Text color="dodgerblue">Post best 5 photos</Text>
+                        </div>
+
+                        <div className="sellorrentPics_Bottom mt5">
+
+                            <FormLabel isRequired>
+                                <Input display="none" variant="filled" name="photoFirst" type="file" onChange={handleChangeFirst} required />
+                                <span className="customFile">
+                                    {
+                                        imageFirst ? (
+                                            <img src={imageFirst} alt="First Image" />
+                                        ) : (
+                                            spin1 ? <Spinner /> : <HouseOutlinedIcon />
+                                        )
+                                    }
+                                </span>
+                            </FormLabel>
+
+                            <FormLabel isRequired>
+                                <Input display="none" variant="filled" name="photoSecond" type="file" onChange={handleChangeSecond} />
+                                <span className="customFile">
+                                    {
+                                        imageSecond ? (
+                                            <img src={imageSecond} alt="Second Image" />
+                                        ) : (
+                                            spin2 ? <Spinner /> : <HouseOutlinedIcon />
+                                        )
+                                    }
+                                </span>
+                            </FormLabel>
+
+                            <FormLabel isRequired>
+                                <Input display="none" variant="filled" name="photoThird" type="file" onChange={handleChangeThird} />
+                                <span className="customFile">
+                                    {
+                                        imageThird ? (
+                                            <img src={imageThird} alt="Third Image" />
+                                        ) : (
+                                            spin3 ? <Spinner /> : <HouseOutlinedIcon />
+                                        )
+                                    }
+                                </span>
+                            </FormLabel>
+
+                            <FormLabel isRequired>
+                                <Input display="none" variant="filled" name="photoFourth" type="file" onChange={handleChangeFourth} />
+                                <span className="customFile">
+                                    {
+                                        imageFourth ? (
+                                            <img src={imageFourth} alt="Fourth Image" />
+                                        ) : (
+                                            spin4 ? <Spinner /> : <HouseOutlinedIcon />
+                                        )
+                                    }
+                                </span>
+                            </FormLabel>
+
+                            <FormLabel isRequired>
+                                <Input display="none" variant="filled" name="photoFifth" type="file" onChange={handleChangeFifth} />
+                                <span className="customFile">
+                                    {
+                                        imageFifth ? (
+                                            <img src={imageFifth} alt="Fith Image" />
+                                        ) : (
+                                            spin5 ? <Spinner /> : <HouseOutlinedIcon />
+                                        )
+                                    }
+                                </span>
+                            </FormLabel>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div className="submitbtn center">
+                    {
+                        loading ? (
+                            <button className="btnFill mt5 mb5 m1">
+                                <Spinner />
+                            </button>
+                        ) : <input className="btnFill mt5 mb5 m1" type="submit" />
+
+                    }
+                </div>
+            </form >
+
+            {
+                published && (
+                    <div className="published">
+                        <Alert status="info">
+                            <AlertIcon />
+                            <Box flex="1">
+                                <AlertTitle>Success!</AlertTitle>
+                                <AlertDescription display="block">
+                                    Your post has been uploaded.
+                                </AlertDescription>
+                            </Box>
+                        </Alert>
+                    </div>
+                )
+            }
+        </div >
+    )
+
+}
+
+export default SellForm

@@ -1,0 +1,157 @@
+.home {
+  position: relative;
+}
+
+.homeTopBtn .MuiSvgIcon-root {
+  left: 0;
+}
+
+.myBtn {
+  display: none;
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: #302b63;
+  color: white;
+  cursor: pointer;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.myBtn:hover {
+  opacity: 0.7;
+}
+
+.btnShow {
+  display: block;
+}
+
+.home svg {
+  position: absolute;
+  z-index: -1;
+  top: 0%;
+  width: 100%;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100vh;
+  padding: 30px;
+}
+
+.bannerLeft {
+  max-width: 40vw;
+  width: 100%;
+}
+
+.bannerLeft h1 {
+  font-family: var(--fontStyle-Five);
+}
+
+.bannerRight img {
+  width: 55vw;
+  object-fit: contain;
+  /* filter: drop-shadow(2px 4px 6px black); */
+  margin-bottom: 20px;
+  z-index: 1;
+}
+
+.href:hover {
+  text-decoration: none;
+}
+
+.active {
+  font-size: 3vw;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.benefitImg img {
+  width: 600px;
+  object-fit: contain;
+}
+
+.benefitLists {
+  padding: 20px;
+}
+
+.benefitList {
+  list-style: none;
+  margin: 15px 0;
+  padding: 6px;
+  border-bottom: 2px solid #302b63;
+  border-radius: 50px;
+  font-weight: 400;
+}
+
+.contactContent {
+  height: 300px;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+}
+
+.contact svg {
+  position: relative;
+  left: -40%;
+  color: #302b63;
+}
+
+@media screen and (max-width: 668px) {
+  .contactContent {
+    height: 600px;
+  }
+
+  .contactContent h2 {
+    margin: 0;
+  }
+
+  .contactContent {
+    margin-left: 50px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .banner {
+    height: 100vh;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 30px;
+  }
+  .bannerLeft {
+    max-width: 60vw;
+  }
+
+  .home svg {
+    top: -1%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .banner {
+    flex-direction: column;
+  }
+  .bannerLeft {
+    max-width: 70vw;
+  }
+  .bannerLeft h1 {
+    font-size: 6.5vw;
+  }
+
+  .bannerRight img {
+    width: 100%;
+  }
+}

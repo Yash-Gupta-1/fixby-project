@@ -1,0 +1,95 @@
+.footer {
+  position: relative;
+}
+
+.footer svg {
+  position: relative;
+  left: -40%;
+  color: #302b63;
+}
+
+.footerTop {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 500px;
+  background-image: url("./footerbg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.footerTop_up {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: #302b63;
+}
+
+.footerTop_up img {
+  width: 150px;
+  object-fit: contain;
+}
+
+.footerTop_up a {
+  margin-right: 5px;
+  text-decoration: none;
+  font-family: var(--fontStyle-Five);
+  color: var(--main-colorOne);
+  font-size: var(--medium-fontOne);
+}
+
+.footerTop_down {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.footerTop_right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.footerTop_right > .MuiAvatar-root {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.footerTop_right .social {
+  display: flex;
+  align-items: center;
+}
+
+.footerTop_right ul {
+  max-width: 180px;
+}
+
+.footerTop_about {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 700px) {
+  .footerTop {
+    height: 550px;
+  }
+
+  .footerTop_down {
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .footerTop_middle {
+    margin-bottom: 50px;
+  }
+
+  .h1 {
+    font-size: var(--medium-fontTwo);
+    font-weight: bolder;
+  }
+}

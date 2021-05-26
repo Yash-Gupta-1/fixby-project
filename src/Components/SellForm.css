@@ -1,0 +1,77 @@
+.sellform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.sellform form {
+  width: 40vw;
+}
+
+.radioWrap {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.sellorrentPics {
+  display: flex;
+  flex-direction: column;
+}
+
+.sellorrentPics_Bottom {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.customFile img {
+  width: 70px;
+  object-fit: contain;
+}
+
+.sellorrentPics_Bottom label {
+  border: 2px solid gray;
+  border-radius: 50px;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.customFile > .MuiSvgIcon-root {
+  font-size: 3rem;
+}
+
+.published {
+  position: fixed;
+  bottom: 0;
+  right: 50%;
+  z-index: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .sellform form {
+    width: 100vw;
+    padding: 30px;
+  }
+  .published {
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .sellform form {
+    width: 100vw;
+    padding: 30px;
+  }
+}

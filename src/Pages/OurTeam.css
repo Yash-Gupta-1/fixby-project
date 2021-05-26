@@ -1,0 +1,49 @@
+.ourteam {
+  margin-top: 20px;
+}
+
+.teamCards {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  user-select: none;
+  margin-top: 10px;
+}
+
+.teamCard {
+  max-width: 300px;
+  width: 100%;
+  height: fit-content;
+  background: linear-gradient(145deg, #f0f0f0, #cacaca);
+  box-shadow: 20px 20px 42px #b3b3b3, -20px -20px 42px #ffffff;
+  border-radius: 30px;
+  margin: 2rem;
+}
+
+.teamTop img {
+  width: 100%;
+  object-fit: contain;
+  border-radius: 30px;
+  background: linear-gradient(145deg, #f0f0f0, #cacaca);
+  box-shadow: 11px 11px 22px #b5b5b5, -11px -11px 22px #ffffff;
+}
+
+.teamBottomm {
+  text-align: center;
+  padding: 20px;
+}
+
+.teamBottomm a {
+  margin: 0 5px;
+}
+
+.teamBottomm a:hover {
+  color: var(--main-colorTwo);
+}
+
+@media screen and (max-width: 1169px) {
+  .order {
+    order: -1;
+  }
+}

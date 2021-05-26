@@ -1,0 +1,269 @@
+.myaccount {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  height: fit-content;
+}
+
+.myLeft,
+.myRight {
+  padding: 30px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #fff;
+}
+
+.myLeft {
+  flex: 0.2;
+  margin-top: 30px;
+  /* background: linear-gradient(145deg, #f0f0f0, #cacaca);
+  box-shadow: 7px 7px 14px #bebebe, -7px -7px 14px #ffffff; */
+  position: sticky;
+  top: 11%;
+  z-index: 1;
+  border-radius: 50px;
+  background: linear-gradient(145deg, #ffffff, #d9d8e6);
+  box-shadow: 5px 5px 10px #898991, -5px - 5px 10px #ffffff;
+}
+
+.myLeftTop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.myLeftTop::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  background-color: #302b63;
+  height: 1px;
+  width: 100%;
+  z-index: 1;
+  margin-top: 20px;
+}
+
+.myLeftTop.Avatar {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  background: slategray;
+}
+
+.myLeftBottom {
+  width: 90%;
+}
+
+.myLeftBottom ul {
+  width: 100%;
+  text-align: center;
+}
+
+.myLeftBottom ul li {
+  list-style: none;
+  padding: 10px;
+  margin: 15px 0;
+  position: relative;
+}
+
+.myaccountActive::after {
+  content: "";
+  position: absolute;
+  height: 42px;
+  width: 50%;
+  transform: rotateY(-92deg);
+  left: -25%;
+  top: 1px;
+  background-color: #302b63;
+  transition: all 0.5s ease;
+}
+
+.myLeftBottom ul li:hover {
+  background: #f1f0ff;
+}
+
+.myLeftBottom li a {
+  font-size: 1rem;
+}
+
+.myLeftBottom ul li a:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+.myActive {
+  position: absolute;
+  left: 0;
+  border-left: 5px solid #302b63;
+}
+
+.myRight {
+  flex: 0.5;
+  /* margin-top: 30px; */
+  /* background: linear-gradient(145deg, #f0f0f0, #cacaca);
+  box-shadow: 7px 7px 14px #bebebe, -7px -7px 14px #ffffff; */
+}
+
+.myRighTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+}
+
+.myRighTop.Avatar {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  background: slategray;
+}
+
+.myRighTop form {
+  display: flex;
+  flex-direction: column;
+}
+
+.myRighTop_left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.myRighTop_leftServie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 10px 0;
+  width: 100%;
+}
+.myRighTop_leftServie img {
+  width: 100px;
+  object-fit: contain;
+}
+
+.serviceDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.myRighTop_leftServie a {
+  text-decoration: none;
+  margin: 10px 0;
+  border-radius: 8px;
+  margin-right: 10px;
+  width: 130px;
+  height: 160px;
+  border-radius: 21px;
+  background: linear-gradient(145deg, #ffffff, #d9d8e6);
+  box-shadow: 5px 5px 10px #898991, -5px -5px 10px #ffffff;
+  padding: 10px;
+  object-fit: contain;
+}
+
+.myRighTop_leftServie a:hover {
+  opacity: 0.7;
+  color: #000;
+}
+
+.myaccountImg {
+  width: 550px;
+  object-fit: contain;
+}
+
+.myaccountPost {
+  overflow: hidden;
+  /* overflow-x: hidden;
+  overflow-y: scroll; */
+}
+
+.myaccountPost a {
+  color: black;
+}
+
+.myaccountPost a hover {
+  text-decoration: none;
+  color: black;
+}
+
+.mypostDiv {
+  position: relative;
+}
+
+.delete {
+  position: relative;
+  top: -127px;
+  right: -290px;
+}
+
+@media screen and (max-width: 1024px) {
+  .myLeftTop {
+    padding: 30px;
+  }
+
+  .myRighTop_leftServie a {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .myaccount {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .myLeft {
+    width: 100vw;
+    height: 100%;
+    background: #ffffff;
+    margin-top: 0px;
+    position: relative;
+    top: 0;
+    z-index: 0;
+  }
+
+  .myLeftTop {
+    justify-content: flex-start;
+  }
+
+  .myLeftTop.Avatar {
+    width: 130px;
+    height: 130px;
+  }
+
+  .myRight {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .myRighTop {
+    width: 100vw;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .myRighTop_leftServie a {
+    margin: 10px 0;
+    width: 48%;
+  }
+
+  /* .myaccountPost {
+    width: 90vw;
+  } */
+
+  .delete {
+    top: -128px;
+    right: -210px;
+  }
+}

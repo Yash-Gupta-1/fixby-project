@@ -1,0 +1,40 @@
+.sellBottom {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+
+.sellBottomImg {
+  position: sticky;
+  top: 300px;
+}
+
+.sellBottom .sellBottomImg {
+  width: 70vw;
+  z-index: 1;
+  margin-top: -150px;
+}
+
+@media screen and (max-width: 768px) {
+  .sellBottom {
+    flex-direction: column;
+  }
+  .sellBottom .sellBottomImg {
+    display: none;
+    width: 100vw;
+    position: fixed;
+    top: 30%;
+    z-index: -1;
+    opacity: 0.3;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .sellBottom {
+    flex-direction: column;
+  }
+
+  .sellBottom .sellBottomImg {
+    display: none;
+  }
+}

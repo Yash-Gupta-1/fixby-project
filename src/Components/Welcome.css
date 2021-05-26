@@ -1,0 +1,16 @@
+.welcomeContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.welcomeContent_Left {
+  max-width: 300px;
+}
+
+.rawDis img {
+  width: 300px;
+  object-fit: contain;
+}
