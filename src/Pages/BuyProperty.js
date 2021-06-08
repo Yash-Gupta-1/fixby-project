@@ -21,6 +21,7 @@ const BuyProperty = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const firstField = React.useRef()
     const [searchProp, setSearchProp] = useState('')
+    const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false);
     const [slideDoor, setSlideDoor] = useState(false);
     const [scale, setScale] = useState(false);
@@ -231,13 +232,31 @@ const BuyProperty = () => {
             setScale(true)
         }, 400);
 
-    }, [])
+    }, [scale])
 
     const override = css`
     display: block;
     margin: 0 auto;
   `;
 
+    const searchedProperty = (searchTerm) => {
+        if (searchTerm !== "") {
+            const newProp = properties.filter(({ data }) => {
+                return Object
+                    .values(data)
+                    .join(" ")
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
+            })
+            setProperties(newProp)
+        } else if (searchTerm === "") {
+            allProperty()
+        }
+    }
+
+    useEffect(() => {
+        searchedProperty(searchProp)
+    }, [searchProp])
 
     return (
         <div className="buyprop">
@@ -257,18 +276,6 @@ const BuyProperty = () => {
                                         <MenuItem onClick={() => onlyRent()}>For Rent</MenuItem>
                                         <MenuItem onClick={() => onlyBuy()}>For Buy</MenuItem>
                                     </MenuGroup>
-                                    {/* <MenuGroup title="Price for Rent">
-                                        <MenuItem>0 to 10000</MenuItem>
-                                        <MenuItem>10000 to 20000</MenuItem>
-                                        <MenuItem>20000 +</MenuItem>
-                                    </MenuGroup>
-                                    <MenuGroup title="Price for Buy">
-                                        <MenuItem>5 Lakh to 20 Lakh</MenuItem>
-                                        <MenuItem>20 Lakh to 50 Lakh</MenuItem>
-                                        <MenuItem onClick={() => {
-                                            
-                                        }}>50 Lakh +</MenuItem>
-                                    </MenuGroup> */}
                                 </MenuList>
                             </Portal>
                         </Menu>
@@ -324,60 +331,30 @@ const BuyProperty = () => {
                         </div>
                     ) : (
                         <>
-                            {/* {
-                                onlyBuyClicked ? (
-                                    properties ? (
-                                        properties
-                                            .map(({ id, data }) => (
-                                                <Property key={id} id={id} price={data.price} time={data.timestamp} title={data.title} purpose={data.purpose} img1={data.img1} locality={data.locality} bhk={data.bhkInfo} type={data.type} />
-                                            ))
-                                    ) : (
-                                        <Heading textAlign="center">No data found</Heading>
-                                    )
-
-                                ) : onlyRentClicked ? (
-                                    properties
-                                        .map(({ id, data }) => (
-                                            <Property key={id} id={id} price={data.price} time={data.timestamp} title={data.title} purpose={data.purpose} img1={data.img1} locality={data.locality} bhk={data.bhkInfo} type={data.type} />
-                                        ))
-                                ) : highToLow ? (
-                                    properties
-                                        .map(({ id, data }) => (
-                                            <Property key={id} id={id} price={data.price} time={data.timestamp} title={data.title} purpose={data.purpose} img1={data.img1} locality={data.locality} bhk={data.bhkInfo} type={data.type} />
-                                        ))
-                                ) : lowToHigh ? (
-                                    properties
-                                        .map(({ id, data }) => (
-                                            <Property key={id} id={id} price={data.price} time={data.timestamp} title={data.title} purpose={data.purpose} img1={data.img1} locality={data.locality} bhk={data.bhkInfo} type={data.type} />
-                                        ))
-                                ) : allClicked ? ( */}
                             {
                                 properties
-                                    .filter(({ data }) => {
-                                        if (searchProp === "") {
-                                            return data
-                                        } else if ((data.type).toLowerCase().includes(searchProp.toLowerCase())) {
-                                            return data
-                                        } else if ((data.price).toLowerCase().includes(searchProp.toLowerCase())) {
-                                            return data
-                                        } else if ((data.purpose).toLowerCase().includes(searchProp.toLowerCase())) {
-                                            return data
-                                        } else if ((data.locality).toLowerCase().includes(searchProp.toLowerCase())) {
-                                            return data
-                                        } else if ((data.bhkInfo).toLowerCase().includes(searchProp.toLowerCase())) {
-                                            return data
-                                        }
-                                    })
+                                    // .filter(({ data }) => {
+                                    //     if (searchProp === "") {
+                                    //         return data
+                                    //     } else if (searchProp === data.type) {
+                                    //         return data
+                                    //     }
+                                    //     else if ((data.price).toLowerCase().includes(searchProp.toLowerCase())) {
+                                    //         return data
+                                    //     } else if ((data.purpose).toLowerCase().includes(searchProp.toLowerCase())) {
+                                    //         return data
+                                    //     } else if ((data.locality).toLowerCase().includes(searchProp.toLowerCase())) {
+                                    //         return data
+                                    //     } else if ((data.bhkInfo).toLowerCase().includes(searchProp.toLowerCase())) {
+                                    //         return data
+                                    //     }
+                                    // })
                                     .map(({ id, data }) => (
-                                        <div className={!slideDoor && "doorh1Display"}>
+                                        <div key={id} data-aos="fade-up" className={!slideDoor && "doorh1Display"}>
                                             <Property key={id} id={id} price={data.price} time={data.timestamp} title={data.title} purpose={data.purpose} img1={data.img1} locality={data.locality} bhk={data.bhkInfo} type={data.type} />
                                         </div>
                                     ))
                             }
-                            {/* ) : (
-                                    <Heading>No data found</Heading>
-                                )
-                            } */}
                         </>
                     )
 

@@ -6,8 +6,10 @@ import { Text } from '@chakra-ui/layout';
 import { NavLink } from 'react-router-dom';
 import BookmarksSharpIcon from '@material-ui/icons/BookmarksSharp';
 import BookmarksOutlinedIcon from '@material-ui/icons/BookmarksOutlined';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
-const Property = ({ id, title, purpose, price, img1, time, locality, bhk, type }) => {
+const Property = (props) => {
     const [saveClicked, setSaveClicked] = useState(false)
 
     useEffect(() => {
@@ -31,18 +33,20 @@ const Property = ({ id, title, purpose, price, img1, time, locality, bhk, type }
 
     return (
         <>
-            <div className="property m1 mt3" data-aos="fade-up" key={id}>
-                <div className="propertyImage" >
-                    <NavLink to={`/property/${id}`}>
-                        <img
-                            src={img1}
-                            alt={title}
+            <div className="property m1 mt3" data-aos="fade-up" key={props.id}>
+                <div className="propertyImage"  >
+                    <NavLink to={`/${props.id}`}>
+                        <LazyLoadImage
+                            alt={props.img1}
+                            src={props.img1}
+                            placeholderSrc="https://i0.wp.com/reviveyouthandfamily.org/wp-content/uploads/2016/11/house-placeholder.jpg?ssl=1"
+                            // effect="opacity"
                         />
                     </NavLink>
                 </div>
-                <div className="propDetails mt1">
+                <div className="propDetails mt1" >
                     <div className="rawDis" style={{ justifyContent: "space-between" }}>
-                        <Text fontSize="2xl" fontWeight="semibold" m="1">₹ {price}</Text>
+                        <Text fontSize="2xl" fontWeight="semibold" m="1">₹ {props.price}</Text>
                         <div className="savepost rawDis m1" onClick={() => saveProperty()}>
                             {
                                 saveClicked ? (
@@ -59,14 +63,14 @@ const Property = ({ id, title, purpose, price, img1, time, locality, bhk, type }
                         </div>
                     </div>
                     <div className="rawDis">
-                        <Text fontSize="lg" m="1" mr="2">{bhk} BHK</Text>
-                        <Text fontSize="lg" m="1" mr="2">{type}</Text>
-                        <Text fontSize="lg" m="1" > For {purpose}</Text>
+                        <Text fontSize="lg" m="1" mr="2">{props.bhk} BHK</Text>
+                        <Text fontSize="lg" m="1" mr="2">{props.type}</Text>
+                        <Text fontSize="lg" m="1" > For {props.purpose}</Text>
                     </div>
                 </div>
                 <div className="propDetails_date rawDis mt1" style={{ justifyContent: "space-between" }}>
-                    <Text fontSize="sm" fontWeight="normal" m="2">{locality}</Text>
-                    <Text fontSize="sm" fontWeight="normal" m="2">{convertTimestamp(time)}</Text>
+                    <Text fontSize="sm" fontWeight="normal" m="2">{props.locality}</Text>
+                    <Text fontSize="sm" fontWeight="normal" m="2">{convertTimestamp(props.time)}</Text>
                 </div>
             </div>
         </>

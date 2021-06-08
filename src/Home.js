@@ -14,13 +14,10 @@ import 'react-typed/dist/animatedCursor.css';
 import { useSelector } from 'react-redux';
 import { selectUser } from './features/userSlice';
 import MetaDecorator from './Components/MetaDecorator';
-import Welcome from './Components/Welcome';
-import { auth, db } from './firebase';
 
 const Home = () => {
     const user = useSelector(selectUser);
     const [showTopButton, setShowTopButton] = useState(false)
-    const [showWelcome, setShowWelcome] = useState(false)
 
     useEffect(() => {
         AOS.init({ duration: 1000 })
@@ -31,17 +28,11 @@ const Home = () => {
                 setShowTopButton(false)
             }
         }
-        setInterval(() => {
-            // setShowWelcome(true)
-        }, 5000);
     }, [])
 
 
     return (
         <div className="home">
-            {
-                (!user && showWelcome) && <Welcome />
-            }
             <MetaDecorator title="fixxcap" description="This is Home page with all information of what fixxcap is about" />
 
             <div className="homeTopBtn">
@@ -104,7 +95,7 @@ const Home = () => {
 
                 <div className="benefit center mt5" >
                     <div className="benefitImg" data-aos="fade-up">
-                        <img loading="lazy" src="/images/benefit.png" alt="benefit image" />
+                        <img loading="lazy" src="/images/benefit.png" alt="benefit" />
                     </div>
                     <div className="benefitContent" >
                         <ul className="benefitLists">

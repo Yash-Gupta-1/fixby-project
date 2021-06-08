@@ -13,7 +13,6 @@ import firebase from "firebase";
 import { useSelector } from 'react-redux';
 import { selectUser } from '../features/userSlice';
 import MetaDecorator from '../Components/MetaDecorator';
-import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 import HouseOutlinedIcon from '@material-ui/icons/HouseOutlined';
 import { Spinner } from "@chakra-ui/react"
 
@@ -367,7 +366,7 @@ const SellForm = () => {
                                 <span className="customFile">
                                     {
                                         imageFirst ? (
-                                            <img src={imageFirst} alt="First Image" />
+                                            <img src={imageFirst} alt="First" />
                                         ) : (
                                             spin1 ? <Spinner /> : <HouseOutlinedIcon />
                                         )
@@ -380,7 +379,7 @@ const SellForm = () => {
                                 <span className="customFile">
                                     {
                                         imageSecond ? (
-                                            <img src={imageSecond} alt="Second Image" />
+                                            <img src={imageSecond} alt="Second" />
                                         ) : (
                                             spin2 ? <Spinner /> : <HouseOutlinedIcon />
                                         )
@@ -393,7 +392,7 @@ const SellForm = () => {
                                 <span className="customFile">
                                     {
                                         imageThird ? (
-                                            <img src={imageThird} alt="Third Image" />
+                                            <img src={imageThird} alt="Third" />
                                         ) : (
                                             spin3 ? <Spinner /> : <HouseOutlinedIcon />
                                         )
@@ -406,7 +405,7 @@ const SellForm = () => {
                                 <span className="customFile">
                                     {
                                         imageFourth ? (
-                                            <img src={imageFourth} alt="Fourth Image" />
+                                            <img src={imageFourth} alt="Fourth" />
                                         ) : (
                                             spin4 ? <Spinner /> : <HouseOutlinedIcon />
                                         )
@@ -419,7 +418,7 @@ const SellForm = () => {
                                 <span className="customFile">
                                     {
                                         imageFifth ? (
-                                            <img src={imageFifth} alt="Fith Image" />
+                                            <img src={imageFifth} alt="Fith" />
                                         ) : (
                                             spin5 ? <Spinner /> : <HouseOutlinedIcon />
                                         )
@@ -433,14 +432,11 @@ const SellForm = () => {
                 </div>
 
                 <div className="submitbtn center">
-                    {
-                        loading ? (
-                            <button className="btnFill mt5 mb5 m1">
-                                <Spinner />
-                            </button>
-                        ) : <input className="btnFill mt5 mb5 m1" type="submit" />
-
-                    }
+                    <button className="btnFill mt5 mb5 m1" type="submit">
+                        {
+                            loading ? <Spinner /> : "Submit"
+                        }
+                    </button>
                 </div>
             </form >
 

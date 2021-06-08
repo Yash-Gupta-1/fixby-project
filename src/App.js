@@ -15,7 +15,7 @@ import { auth } from './firebase';
 import MyAccount from './Pages/MyAccount';
 import EmailVerify from './Pages/EmailVerify';
 import { css } from "@emotion/core";
-import ClipLoader from "react-spinners/ClipLoader";
+import PropagateLoader from "react-spinners/PropagateLoader";
 import SingleProperty from './Components/SingleProperty';
 import UserProfile from './Pages/UserProfile';
 import Login from './Components/Login';
@@ -44,7 +44,7 @@ function App() {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-    }, 500)
+    }, 1000)
   }, [])
 
   const override = css`
@@ -62,7 +62,7 @@ function App() {
         {
           loading ? (
             <div className="loading rawDis" style={{ height: "100vh" }}>
-              <ClipLoader color={"#302b63"} loading={loading} css={override} size={40} />
+              <PropagateLoader color={"#302b63"} loading={loading} css={override} size={25} />
             </div>
           ) :
             <BrowserRouter>
@@ -83,7 +83,7 @@ function App() {
                 </Route>
                 <Route component={Sell} path="/sell-or-rentproperty" />
                 <Route component={EmailVerify} path="/emailvarification" />
-                <Route path="/property/:id">
+                <Route path="/:id">
                   <SingleProperty />
                 </Route>
                 <Route component={Login} path="/login" />

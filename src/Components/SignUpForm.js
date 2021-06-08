@@ -11,7 +11,7 @@ const SignUpForm = () => {
     const [userPassword, setUserPassword] = useState('')
     const [userConfirmPassword, setUserConfirmPassword] = useState('')
     const [error, setError] = useState('')
-    const [loading, setLoading] = useState(true)
+    const [loading] = useState(true)
     const history = useHistory();
 
     const signUpWithEmail = async (e) => {

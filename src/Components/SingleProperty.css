@@ -50,7 +50,6 @@
 
 .leftDetails {
   width: 100%;
-  /* border: 3px solid slategrey; */
   border-top: 4px solid var(--main-colorOne);
   border-bottom: 4px solid var(--main-colorOne);
   border-radius: 50px;
