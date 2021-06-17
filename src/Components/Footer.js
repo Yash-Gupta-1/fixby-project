@@ -16,7 +16,7 @@ const Footer = () => {
                 <div className="footerTop_up">
                     <NavLink to="/">
                         <b>
-                            <Heading as="h1" fontWeight="semibold"><i>{"<fixxcap />"}</i></Heading>
+                            <Heading as="h1" fontWeight="semibold"><em>fixxcap</em></Heading>
                         </b>
                     </NavLink>
                 </div>

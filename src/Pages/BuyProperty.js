@@ -15,6 +15,7 @@ import { Button, Input } from '@material-ui/core';
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
 import MetaDecorator from '../Components/MetaDecorator';
+import NotFound from '../Components/NotFound';
 
 const BuyProperty = () => {
     const [properties, setProperties] = useState([]);
@@ -239,24 +240,26 @@ const BuyProperty = () => {
     margin: 0 auto;
   `;
 
-    const searchedProperty = (searchTerm) => {
-        if (searchTerm !== "") {
-            const newProp = properties.filter(({ data }) => {
-                return Object
-                    .values(data)
-                    .join(" ")
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase())
-            })
-            setProperties(newProp)
-        } else if (searchTerm === "") {
-            allProperty()
-        }
-    }
+    // const searchedProperty = (searchTerm) => {
+    //     if (searchTerm !== "") {
+    //         const newProp = properties.filter(({ data }) => {
+    //             console.log('search data', data);
 
-    useEffect(() => {
-        searchedProperty(searchProp)
-    }, [searchProp])
+    //             return Object
+    //                 .values(data)
+    //                 .join(" ")
+    //                 .toLowerCase()
+    //                 .includes(searchTerm.toLowerCase())
+    //         })
+    //         setProperties(newProp)
+    //     } else if (searchTerm === "") {
+    //         return data
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     searchedProperty(searchProp)
+    // }, [searchProp])
 
     return (
         <div className="buyprop">
@@ -313,7 +316,7 @@ const BuyProperty = () => {
                         <DrawerOverlay>
                             <DrawerContent>
                                 <DrawerBody className="center">
-                                    <Input type="text" style={{ width: "100%" }} onChange={(e) => setSearchProp(e.target.value)} placeholder="Type here..." />
+                                    <Input type="text" style={{ width: "100%" }} onChange={(e) => setSearchProp(e.target.value)} placeholder="search (exp: house, flat, 1000000)" />
                                 </DrawerBody>
                             </DrawerContent>
                         </DrawerOverlay>
@@ -333,22 +336,22 @@ const BuyProperty = () => {
                         <>
                             {
                                 properties
-                                    // .filter(({ data }) => {
-                                    //     if (searchProp === "") {
-                                    //         return data
-                                    //     } else if (searchProp === data.type) {
-                                    //         return data
-                                    //     }
-                                    //     else if ((data.price).toLowerCase().includes(searchProp.toLowerCase())) {
-                                    //         return data
-                                    //     } else if ((data.purpose).toLowerCase().includes(searchProp.toLowerCase())) {
-                                    //         return data
-                                    //     } else if ((data.locality).toLowerCase().includes(searchProp.toLowerCase())) {
-                                    //         return data
-                                    //     } else if ((data.bhkInfo).toLowerCase().includes(searchProp.toLowerCase())) {
-                                    //         return data
-                                    //     }
-                                    // })
+                                    .filter(({ data }) => {
+                                        if (searchProp === "") {
+                                            return data
+                                        } else if ((data.type || data.price || data.purpose || data.locality || data.bhkInfo).toLowerCase().includes(searchProp.toLowerCase())) {
+                                            return data
+                                        } else if ((data.price).toLowerCase().includes(searchProp.toLowerCase())) {
+                                            return data
+                                        }
+                                        // else if ((data.purpose).toLowerCase().includes(searchProp.toLowerCase())) {
+                                        //     return data
+                                        // } else if ((data.locality).toLowerCase().includes(searchProp.toLowerCase())) {
+                                        //     return data
+                                        // } else if ((data.bhkInfo).toLowerCase().includes(searchProp.toLowerCase())) {
+                                        //     return data
+                                        // }
+                                    })
                                     .map(({ id, data }) => (
                                         <div key={id} data-aos="fade-up" className={!slideDoor && "doorh1Display"}>
                                             <Property key={id} id={id} price={data.price} time={data.timestamp} title={data.title} purpose={data.purpose} img1={data.img1} locality={data.locality} bhk={data.bhkInfo} type={data.type} />

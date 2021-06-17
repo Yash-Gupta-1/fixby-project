@@ -1,8 +1,8 @@
 import React from 'react';
 import '../Utility.css';
 import './Header.css';
-import { NavLink } from 'react-router-dom';
-import { HashLink as Link } from 'react-router-hash-link';
+import { NavLink, Link, useHistory } from 'react-router-dom';
+// import { HashLink as  } from 'react-router-hash-link';
 import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
 import CloseIcon from '@material-ui/icons/Close';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
@@ -26,6 +26,7 @@ import Login from './Login';
 function DrawerOne() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const firstField = React.useRef()
+    const history = useHistory()
 
     const user = useSelector(selectUser);
 
@@ -95,7 +96,11 @@ function DrawerOne() {
                         <DrawerFooter>
                             {
                                 user ? (
-                                    <button onClick={() => auth.signOut()} className="btnOutline" style={{ fontSize: "1.2rem" }}>
+                                    <button onClick={() => {
+                                        auth.signOut();
+                                        history.push("/")
+
+                                    }} className="btnOutline" style={{ fontSize: "1.2rem" }}>
                                         <ExitToAppIcon />
                                         Logout
                                     </button>
@@ -170,6 +175,7 @@ function SellModal() {
 
 const Header = () => {
     const user = useSelector(selectUser);
+    const history = useHistory()
 
     return (
         <div className="header_main">
@@ -178,7 +184,7 @@ const Header = () => {
                     <NavLink to="/">
                         <b>
                             {/* <img src="/images/logo1.png" alt="fixxcap logo" /> */}
-                            <Heading as="h1" fontWeight="semibold"><i>{"<fixxcap />"}</i></Heading>
+                            <Heading as="h1" fontWeight="semibold"><em>fixxcap</em></Heading>
                         </b>
                     </NavLink>
                 </div>
@@ -200,7 +206,7 @@ const Header = () => {
                         <li>
                             {
                                 user && (
-                                    (user.email === "yashgupta162001@gmail.com" && <NavLink activeClassName="headerActive" to={"/fixxcapuserprofile"}>User Details</NavLink>
+                                    (user.email === "yashgupta162001@gmail.com" && <NavLink activeClassName="headerActive" to={"/userprofile"}>User Details</NavLink>
                                     )
                                 )
                             }
@@ -222,7 +228,11 @@ const Header = () => {
                                                         My Account
                                                     </MenuItem>
                                                 </Link>
-                                                <MenuItem onClick={() => auth.signOut()}>Logout </MenuItem>
+                                                <MenuItem onClick={() => {
+                                                    auth.signOut();
+                                                    history.push("/")
+
+                                                }}>Logout </MenuItem>
                                             </MenuGroup>
                                         </MenuList>
                                     </Menu>

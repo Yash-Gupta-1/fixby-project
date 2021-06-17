@@ -12,7 +12,6 @@ import Login from '../Components/Login';
 import { Alert, AlertDescription, AlertIcon, AlertTitle } from '@chakra-ui/alert';
 import Property from '../Components/Porperty';
 import MetaDecorator from '../Components/MetaDecorator';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import NotFound from '../Components/NotFound';
 
 const useStyles = makeStyles((theme) => ({
@@ -74,18 +73,18 @@ const MyAccount = () => {
 
     }, [])
 
-    const deleteProperty = async (id) => {
-        try {
-            const confirmBox = window.confirm(
-                "Do you really want to delete this ad?"
-            )
-            if (confirmBox === true) {
-                await db.collection('propertyData').doc(id).delete();
-            }
-        } catch (err) {
-            alert(err.message)
-        }
-    }
+    // const deleteProperty = async (id) => {
+    //     try {
+    //         const confirmBox = window.confirm(
+    //             "Do you really want to delete this ad?"
+    //         )
+    //         if (confirmBox === true) {
+    //             await db.collection('propertyData').doc(id).delete();
+    //         }
+    //     } catch (err) {
+    //         alert(err.message)
+    //     }
+    // }
 
     return (
         <div className="myaccount">
@@ -212,7 +211,7 @@ const MyAccount = () => {
                                                         .map(({ id, data }) => (
                                                             <div className="mypostDiv">
                                                                 <Property key={id} id={id} price={data.price} time={data.timestamp} title={data.title} purpose={data.purpose} img1={data.img1} locality={data.locality} bhk={data.bhkInfo} type={data.type} />
-                                                                <button className="delete" onClick={() => deleteProperty(id)}><DeleteForeverIcon /></button>
+                                                                {/* <button className="delete" onClick={() => deleteProperty(id)}><DeleteForeverIcon /></button> */}
                                                             </div>
                                                         ))
                                                 }

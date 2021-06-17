@@ -3,10 +3,9 @@ import './SellForm.css';
 import '../Utility.css'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Form from 'react-bootstrap/Form'
 import * as yup from 'yup';
 import {
-    FormControl, FormLabel, HStack, RadioGroup, Radio, Select, Input, Alert, AlertTitle, AlertDescription, AlertIcon, Box, Textarea, Heading, Text
+    FormControl, FormLabel, HStack, RadioGroup, Radio, Select, Input, Alert, AlertTitle, AlertDescription, AlertIcon, Box, Textarea, Heading, Text, FormHelperText
 } from "@chakra-ui/react"
 import { db, storage } from '../firebase';
 import firebase from "firebase";
@@ -16,15 +15,14 @@ import MetaDecorator from '../Components/MetaDecorator';
 import HouseOutlinedIcon from '@material-ui/icons/HouseOutlined';
 import { Spinner } from "@chakra-ui/react"
 
-const schema = yup.object().shape({
-    purpose: yup.string().required(),
-    types: yup.string().required(),
-    listed: yup.string().required(),
-    builtup: yup.string().required(),
-})
+// const schema = yup.object().shape({
+//     userName: yup.string().required(),
+//     price: yup.string().min("5000").required(),
+// });
 
 const SellForm = () => {
     const user = useSelector(selectUser)
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [listedBy, setListedBy] = useState('');
     const [userName, setUserName] = useState(user.displayName);
     const [userNumber, setUserNumber] = useState('');
@@ -55,14 +53,11 @@ const SellForm = () => {
     const [spin4, setSpin4] = useState(false);
     const [spin5, setSpin5] = useState(false);
     const [loading, setLoading] = useState(false);
-    // const { register, handleSubmit, formState: { errors } } = useForm({
-    //     resolver: yupResolver(),
-    // });
-    console.log(user);
 
-
-    const handleUpload = (e) => {
+    const handleUpload = (e, data) => {
         e.preventDefault()
+        console.log('Form Data', data);
+
         setLoading(true)
         db.collection("propertyData").add({
             listedBy: listedBy,
@@ -186,14 +181,14 @@ const SellForm = () => {
         <div className="sellform">
             <MetaDecorator title="fixxcap - Sell or Rent Your Property" description="This page available for developer" />
 
-            <form onSubmit={handleUpload}>
+            <form onSubmit={handleSubmit(handleUpload)}>
                 <div className="personalDetail">
                     <Heading className="h2 center" size="md" mt="10">Personal Details</Heading>
 
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>Listed By</FormLabel>
-                        <Select variant="filled" placeholder="Select profile" name="listedby" value={listedBy} onChange
-                            ={(e) => setListedBy(e.target.value)} required>
+                        <Select variant="filled" placeholder="Select profile" value={listedBy} onChange
+                            ={(e) => setListedBy(e.target.value)}>
                             <option>Owner</option>
                             <option>Builder</option>
                             <option>Agent</option>
@@ -209,10 +204,10 @@ const SellForm = () => {
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>Phone Number</FormLabel>
                         <Input variant="filled" name="userNumber" type="phone" value={userNumber} onChange
-                            ={(e) => setUserNumber(e.target.value)} placeholder="Type your Number" required />
+                            ={(e) => setUserNumber(e.target.value)} placeholder="Type your Number" />
+                        <FormHelperText>Please provide valid and currently using number</FormHelperText>
                     </FormControl>
-
-                </div >
+                </div>
 
                 <div className="propertyDetails">
                     <Heading className="h2 center" size="md" mt="10">Property Details</Heading>
@@ -220,7 +215,7 @@ const SellForm = () => {
                     <FormControl marginTop="5" as="fieldset" isRequired>
                         <FormLabel as="legend">Purpose</FormLabel>
                         <RadioGroup defaultValue="">
-                            <HStack display="flex" alignItems="center" spacing="24px" name="purpose" value={purpose} onChange={(e) => setPurpose(e.target.value)} required>
+                            <HStack display="flex" alignItems="center" spacing="24px" name="purpose" value={purpose} onChange={(e) => setPurpose(e.target.value)} >
                                 <div className="btnOutline">
                                     <Radio value="Sale">Sale</Radio>
                                 </div>
@@ -230,6 +225,7 @@ const SellForm = () => {
                             </HStack>
                         </RadioGroup>
                     </FormControl>
+
 
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>Type</FormLabel>
@@ -245,11 +241,12 @@ const SellForm = () => {
                                     ={(e) => setType(e.target.value)} placeholder="Exp-(House, flat, )" /> */}
                     </FormControl>
 
+
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>BHK</FormLabel>
                         <Select variant="filled" name="bhkinfo" placeholder="BHK Detail" value={bhkInfo} onChange
                             ={(e) => setBhkInfo(e.target.value)}>
-                            <option>1</option>
+                            <option >1</option>
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>
@@ -257,7 +254,7 @@ const SellForm = () => {
                         </Select>
                     </FormControl>
 
-                    <FormControl marginTop="5" >
+                    <FormControl marginTop="5" isRequired>
                         <FormLabel>Bathrooms</FormLabel>
                         <Select variant="filled" name="bathrooms" placeholder="No. of Bathrooms" value={bathrooms} onChange
                             ={(e) => setBathrooms(e.target.value)}>
@@ -270,7 +267,7 @@ const SellForm = () => {
                     </FormControl>
 
 
-                    <FormControl marginTop="5">
+                    <FormControl marginTop="5" isRequired>
                         <FormLabel>Furnishing</FormLabel>
                         <Select variant="filled" name="furnishing" placeholder="Furnishing Type" value={furnishing} onChange
                             ={(e) => setFurnishing(e.target.value)}>
@@ -280,7 +277,7 @@ const SellForm = () => {
                         </Select>
                     </FormControl>
 
-                    <FormControl marginTop="5">
+                    <FormControl marginTop="5" isRequired>
                         <FormLabel>Parking</FormLabel>
                         <Select variant="filled" name="bathrooms" placeholder="Parking Avaibility" value={parking} onChange
                             ={(e) => setParking(e.target.value)}>
@@ -292,10 +289,10 @@ const SellForm = () => {
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>Builtup Area (in gaj)</FormLabel>
                         <Input variant="filled" name="builtupArea" type="text" value={builtupArea} onChange
-                            ={(e) => setBuiltupArea(e.target.value)} placeholder="Exp: 100" required />
+                            ={(e) => setBuiltupArea(e.target.value)} placeholder="exp: 100" required />
                     </FormControl>
 
-                    <FormControl marginTop="5">
+                    <FormControl marginTop="5" isRequired>
                         <FormLabel>Floor No</FormLabel>
                         <Input variant="filled" name="floorNo" type="text" value={floorNo} onChange
                             ={(e) => setFloorNo(e.target.value)} placeholder="No. of floors" />
@@ -303,7 +300,7 @@ const SellForm = () => {
 
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>Title</FormLabel>
-                        <Input variant="filled" type="text" value={title} onChange
+                        <Input variant="filled" name="title" type="text" value={title} onChange
                             ={(e) => setTitle(e.target.value)} placeholder="Title for you post" required />
                     </FormControl>
 
@@ -329,10 +326,10 @@ const SellForm = () => {
                             ={(e) => setAddress1(e.target.value)} placeholder="House No & Street No" required />
                     </FormControl>
 
-                    <FormControl marginTop="5" id="title" >
+                    <FormControl marginTop="5" id="title" isRequired>
                         <FormLabel>Address 2</FormLabel>
                         <Input variant="filled" name="address2" type="text" value={address2} onChange
-                            ={(e) => setAddress2(e.target.value)} placeholder="Address & Landmark" />
+                            ={(e) => setAddress2(e.target.value)} placeholder="Address" />
                     </FormControl>
 
                     <FormControl marginTop="5" id="title" isRequired>
@@ -348,10 +345,10 @@ const SellForm = () => {
 
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>Price</FormLabel>
-                        <Input variant="filled" name="price" type="text" value={price} onChange
-                            ={(e) => setPrice(e.target.value)} placeholder="Price in Rupees" required />
+                        <Input {...register("price", { required: true })} variant="filled" name="price" type="text" placeholder="Price in Rupees" />
+                        <FormHelperText>Price should be greater than 2000</FormHelperText>
                     </FormControl>
-
+                    <p style={{ color: "red" }}>{errors.price?.message}</p>
 
                     <div className="sellorrentPics mt4">
                         <div className="sellorrentPics_Top">

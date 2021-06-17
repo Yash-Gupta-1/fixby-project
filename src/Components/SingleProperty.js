@@ -9,8 +9,7 @@ import Carousel from 'react-bootstrap/Carousel'
 const SingleProperty = () => {
     const [properties, setProperties] = useState([])
     const { id } = useParams();
-
-
+    
     useEffect(() => {
         db
             .collection('propertyData')
@@ -28,8 +27,6 @@ const SingleProperty = () => {
 
     return (
         <div className="singleprop p1">
-
-
             {
                 properties
                     .filter(({ idKey }) => idKey === id)

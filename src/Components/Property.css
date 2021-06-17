@@ -1,6 +1,8 @@
 .property {
   max-width: 350px;
-  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
 }
 
 .propertyImage img {
@@ -9,8 +11,7 @@
   object-fit: contain;
 }
 
-@media screen and (max-width: 768px) {
-  .property {
-    max-width: 350px;
-  }
+.delete {
+  display: none;
+  margin-right: 10px;
 }

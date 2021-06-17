@@ -52,7 +52,6 @@ function App() {
   margin: 0 auto;
 `;
 
-
   return (
     <ThemeProvider theme={theme}>
       <ColorModeProvider options={{
@@ -83,11 +82,11 @@ function App() {
                 </Route>
                 <Route component={Sell} path="/sell-or-rentproperty" />
                 <Route component={EmailVerify} path="/emailvarification" />
+                <Route component={UserProfile} path="/userprofile" />
                 <Route path="/:id">
                   <SingleProperty />
                 </Route>
                 <Route component={Login} path="/login" />
-                <Route component={UserProfile} path="/fixxcapuserprofile" />
               </Switch>
             </BrowserRouter>
         }

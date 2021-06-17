@@ -28,6 +28,7 @@ const UserProfile = () => {
             <div className="profileBox p2 mb2">
                 <table>
                     <tr>
+                        <th>No.</th>
                         <th>User Id</th>
                         <th>Profile</th>
                         <th>User Name</th>
@@ -37,8 +38,9 @@ const UserProfile = () => {
                         <th>Property Id</th>
                     </tr>
                     {
-                        profile.map(({ id, data }) => (
+                        profile.map(({ id, data }, index) => (
                             <tr key={id}>
+                                <td>{index + 1}</td>
                                 <td>{data.currentUserId.substring(0, 7)}</td>
                                 <td>{data.listedBy}</td>
                                 <td>{data.userName}</td>

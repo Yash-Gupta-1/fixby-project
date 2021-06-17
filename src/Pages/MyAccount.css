@@ -22,7 +22,7 @@
   /* background: linear-gradient(145deg, #f0f0f0, #cacaca);
   box-shadow: 7px 7px 14px #bebebe, -7px -7px 14px #ffffff; */
   position: sticky;
-  top: 11%;
+  top: 12%;
   z-index: 1;
   border-radius: 50px;
   background: linear-gradient(145deg, #ffffff, #d9d8e6);
@@ -182,8 +182,6 @@
 
 .myaccountPost {
   overflow: hidden;
-  /* overflow-x: hidden;
-  overflow-y: scroll; */
 }
 
 .myaccountPost a {
@@ -197,12 +195,27 @@
 
 .mypostDiv {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
-.delete {
-  position: relative;
-  top: -127px;
-  right: -290px;
+.myaccountPost .property {
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+}
+
+.myaccountPost .propertyImage img {
+  width: 100%;
+  height: 170px;
+  object-fit: contain;
+}
+
+.myaccountPost .delete {
+  display: flex;
 }
 
 @media screen and (max-width: 1024px) {

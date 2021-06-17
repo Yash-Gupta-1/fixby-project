@@ -155,7 +155,7 @@ const Login = () => {
                                             <Link to='#'>Forgot Password ?</Link>
                                         </div>
 
-                                        <Heading as="h6" size="xs" mt="2" className={signupClicked ? "center colorTextOne hide" : "center colorTextOne"}>Not yet registered ? <span onClick={() => setSignupClicked(true)} className="emailSignUp">Sign Up</span> </Heading>
+                                        <Heading as="h6" size="xs" mt="2" className={signupClicked ? "center colorTextOne hide" : "center colorTextOne"}>Not registered yet ? <span onClick={() => setSignupClicked(true)} className="emailSignUp">Sign Up</span> </Heading>
                                     </>
                                 )
                         )

@@ -1,35 +1,34 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle } from '@chakra-ui/alert'
 import { Box } from '@chakra-ui/layout'
-import { Input } from '@material-ui/core'
+import { Input, FormLabel } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
 import { auth } from '../firebase'
+import { useForm } from "react-hook-form";
+
 
 const SignUpForm = () => {
-    const [userName, setUserName] = useState('')
-    const [userEmail, setUserEmail] = useState('')
     const [userPassword, setUserPassword] = useState('')
     const [userConfirmPassword, setUserConfirmPassword] = useState('')
     const [error, setError] = useState('')
     const [loading] = useState(true)
     const history = useHistory();
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const signUpWithEmail = async (e) => {
-        e.preventDefault();
+    const signUpWithEmail = async (data) => {
         if (userConfirmPassword !== userPassword) {
-            setError("Password do not match")
+            setError("Password didn't match")
             setInterval(() => {
                 setError('')
             }, 3000)
         } else {
-            if (!userName) {
+            if (!data.userName) {
                 return alert('Please enter a Fullname');
             }
-
-            await auth.createUserWithEmailAndPassword(userEmail, userPassword)
+            await auth.createUserWithEmailAndPassword(data.userEmail, userPassword)
                 .then((userAuth) => {
                     userAuth.user.updateProfile({
-                        displayName: userName,
+                        displayName: data.userName,
                     })
                         .then(() => {
                             auth.currentUser.sendEmailVerification().then(function () {
@@ -39,21 +38,11 @@ const SignUpForm = () => {
                             });
                         })
                 }).catch(error => alert(error))
-            // await auth.createUserWithEmailAndPassword(userEmail, userPassword)
-            //     .then((user) => {
-            //         console.log('user login page', user);
-            //         auth.currentUser.sendEmailVerification().then(function () {
-            //             console.log('email sent to ', user);
-            //             history.push('/emailvarification')
-            //         }).catch(function (error) {
-            //             console.log('email error is : ', error);
-            //         });
 
-            //     }).catch((err) => {
-            //         console.log('error is : ', err);
-            //     })
         }
     }
+
+
 
     return (
         <div>
@@ -66,11 +55,19 @@ const SignUpForm = () => {
                     </AlertDescription>
                 </Box>
             </Alert>}
-            <form className="p3" onSubmit={signUpWithEmail} >
+            <form className="p3" onSubmit={handleSubmit(signUpWithEmail)} >
                 <div className="loginWithEmail">
-                    <Input value={userName} onChange={(e) => setUserName(e.target.value)} className="mt2" variant="filled" name="userName" type="name" placeholder="Type your Name" required style={{ width: "100%" }} />
+                    <Input {...register("userName", { required: "Please enter your name" })} className="mt2" variant="filled" name="userName" type="name" placeholder="Type your Name" style={{ width: "100%" }} required />
+                    <p style={{ color: "red" }}>{errors.userName?.message}</p>
 
-                    <Input value={userEmail} onChange={(e) => setUserEmail(e.target.value)} className="mt2" variant="filled" name="userEmail" type="email" placeholder="Type your Email" required style={{ width: "100%" }} />
+                    <Input {...register("userEmail", {
+                        required: true, pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                            message: "invalid email address"
+                        }
+                    })} className="mt2" variant="filled" name="userEmail" type="email" placeholder="Type your Email" style={{ width: "100%" }} />
+                    <p style={{ color: "red" }}>{errors.userEmail?.message}</p>
+
 
                     <Input value={userPassword} onChange={(e) => setUserPassword(e.target.value)} className="mt2" variant="filled" name="userPassword" type="password" placeholder="Type your password" required style={{ width: "100%" }} />
 
