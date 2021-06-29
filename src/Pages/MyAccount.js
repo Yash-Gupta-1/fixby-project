@@ -4,15 +4,18 @@ import '../Utility.css';
 import { Box, Heading, Text } from '@chakra-ui/layout';
 import { Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../features/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { logins, logout, selectUser } from '../features/userSlice';
 import { NavLink } from 'react-router-dom';
-import { auth, db } from '../firebase';
+import { auth, db, storage } from '../firebase';
 import Login from '../Components/Login';
 import { Alert, AlertDescription, AlertIcon, AlertTitle } from '@chakra-ui/alert';
 import Property from '../Components/Porperty';
 import MetaDecorator from '../Components/MetaDecorator';
 import NotFound from '../Components/NotFound';
+import EditIcon from '@material-ui/icons/Edit';
+import { Spinner } from "@chakra-ui/react"
+import { FormLabel, Input } from "@chakra-ui/react"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,6 +34,9 @@ const MyAccount = () => {
     const [posts, setPosts] = useState(false)
     const [saved, setSaved] = useState(false)
     const [message, setMessage] = useState('')
+    const [profile, setProfile] = useState('')
+    const [spin, setSpin] = useState(false)
+    const dispatch = useDispatch()
 
     const handleSaveProfile = (e) => {
         e.preventDefault();
@@ -86,6 +92,20 @@ const MyAccount = () => {
     //     }
     // }
 
+
+
+    const handleChangeProfile = async (e) => {
+        setSpin(true)
+        if (e.target.files[0]) {
+            const file = e.target.files[0];
+            const storageRef = storage.ref();
+            const fileRef = storageRef.child(`images/${file.name}`);
+            await fileRef.put(file);
+            setProfile(await fileRef.getDownloadURL());
+            setSpin(false)
+        }
+    };
+
     return (
         <div className="myaccount">
             <MetaDecorator title={`fixxcap - ${user && user.displayName}`} description="This page available for developer" />
@@ -96,7 +116,7 @@ const MyAccount = () => {
                         <div className="myLeft box">
                             <div className="myLeftTop">
                                 <Avatar className="Avatar muiavatar" src={user.photo ? user.photo : user.displayName} alt={user.displayName} />
-                                <Heading as="h2" size="md" mt="5">
+                                <Heading as="h1" size="md" mt="5">
                                     {user.displayName}
                                 </Heading>
                                 <Text color="gray.600" fontSize="small" >@user{user.uid.substring(0, 7)} </Text>
@@ -150,7 +170,14 @@ const MyAccount = () => {
                                         <>
                                             <div className="box p3">
                                                 <div className="myRighTop_left">
-                                                    <Avatar className="Avatar" src={user.photo ? user.photo : user.picture} alt={user.displayName} />
+                                                    <Avatar className="Avatar muiavatar" src={user.photo ? user.photo : user.displayName} alt={user.displayName} />
+                                                    <FormLabel isRequired>
+                                                        <Input onChange={handleChangeProfile} display="none" variant="filled" name="photoThird" type="file" />
+                                                        <span className="customFile">
+                                                            <EditIcon />
+                                                            edit photo
+                                                        </span>
+                                                    </FormLabel>
                                                 </div>
                                                 <div className="myRighTop_leftForm mt3">
                                                     <form onSubmit={handleSaveProfile} className={classes.root}>

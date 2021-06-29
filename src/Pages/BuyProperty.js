@@ -15,17 +15,16 @@ import { Button, Input } from '@material-ui/core';
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
 import MetaDecorator from '../Components/MetaDecorator';
-import NotFound from '../Components/NotFound';
 
 const BuyProperty = () => {
     const [properties, setProperties] = useState([]);
     const { isOpen, onOpen, onClose } = useDisclosure()
     const firstField = React.useRef()
     const [searchProp, setSearchProp] = useState('')
-    const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false);
     const [slideDoor, setSlideDoor] = useState(false);
     const [scale, setScale] = useState(false);
+
 
     useEffect(() => {
         setLoading(true)
@@ -232,7 +231,6 @@ const BuyProperty = () => {
         setInterval(() => {
             setScale(true)
         }, 400);
-
     }, [scale])
 
     const override = css`
@@ -339,22 +337,24 @@ const BuyProperty = () => {
                                     .filter(({ data }) => {
                                         if (searchProp === "") {
                                             return data
-                                        } else if ((data.type || data.price || data.purpose || data.locality || data.bhkInfo).toLowerCase().includes(searchProp.toLowerCase())) {
+                                        } else if ((data.type).toLowerCase().includes(searchProp.toLowerCase())) {
                                             return data
                                         } else if ((data.price).toLowerCase().includes(searchProp.toLowerCase())) {
                                             return data
                                         }
-                                        // else if ((data.purpose).toLowerCase().includes(searchProp.toLowerCase())) {
-                                        //     return data
-                                        // } else if ((data.locality).toLowerCase().includes(searchProp.toLowerCase())) {
-                                        //     return data
-                                        // } else if ((data.bhkInfo).toLowerCase().includes(searchProp.toLowerCase())) {
-                                        //     return data
-                                        // }
+                                        else if ((data.purpose).toLowerCase().includes(searchProp.toLowerCase())) {
+                                            return data
+                                        } else if ((data.locality).toLowerCase().includes(searchProp.toLowerCase())) {
+                                            return data
+                                        } else if ((data.bhkInfo).toLowerCase().includes(searchProp.toLowerCase())) {
+                                            return data
+                                        }
+                                        return data
                                     })
                                     .map(({ id, data }) => (
                                         <div key={id} data-aos="fade-up" className={!slideDoor && "doorh1Display"}>
-                                            <Property key={id} id={id} price={data.price} time={data.timestamp} title={data.title} purpose={data.purpose} img1={data.img1} locality={data.locality} bhk={data.bhkInfo} type={data.type} />
+                                            <Property key={id} id={id} price={data.price} time={data.timestamp} title={data.title} purpose={data.purpose} img1={data.img1} locality={data.locality} bhk={data.bhkInfo} type={data.type}
+                                            />
                                         </div>
                                     ))
                             }

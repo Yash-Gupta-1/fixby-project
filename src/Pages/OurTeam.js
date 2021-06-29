@@ -30,12 +30,12 @@ const OurTeam = () => {
                         <Heading fontSize="2xl" color="#514A9D" mt="2">ASHISH UPADHYAY</Heading>
                         <Heading size="sm" mb="2">Co-Founder</Heading>
                         <div>
-                            <a target="_blank" hrefLang="/https://www.instagram.com/_yashgupta1/" ><InstagramIcon /></a>
-                            <a href="https://www.facebook.com/profile.php?id=100012838808775"><FacebookIcon /></a>
-                            <a href="https://twitter.com/YashGup02731446"><TwitterIcon /></a>
+                            <a target="_blank" rel="noreferrer" href="https://instagram.com/ashish_upadhyay7926?utm_medium=copy_link" ><InstagramIcon /></a>
+                            <a target="_blank" rel="noreferrer" href="https://www.facebook.com/profile.php?id=100012838808775"><FacebookIcon /></a>
+                            <a target="_blank" rel="noreferrer" href="https://twitter.com/YashGup02731446"><TwitterIcon /></a>
                         </div>
-                        <Text mt="3">Teacher</Text>
-                        <Text>Youtuber</Text>
+                        <Text mt="3">Tuitor at <br /> The Right Guru</Text>
+                        {/* <Text>Youtuber</Text> */}
                     </div>
                 </div>
                 <div className="teamCard mt5 order" data-aos="fade-up">
@@ -44,12 +44,12 @@ const OurTeam = () => {
                     </div>
                     <div className="teamBottomm">
                         <Heading fontSize="2xl" color="#514A9D" mt="2">YASH GUPTA</Heading>
-                        <Heading size="sm" mb="2">Student & Founder</Heading>
+                        <Heading size="sm" mb="2">Founder</Heading>
                         <div>
-                            <a href="https://www.Linkedin.com/in/yash-gupta-8b1981175/"><LinkedInIcon /></a>
-                            <a href="https://www.instagram.com/_yashgupta1/"><InstagramIcon /></a>
-                            <a href="https://www.facebook.com/profile.php?id=100012838808775"><FacebookIcon /></a>
-                            <a href="https://twitter.com/YashGup02731446"><TwitterIcon /></a>
+                            <a target="_blank" rel="noreferrer" href="https://www.Linkedin.com/in/yash-gupta-8b1981175/"><LinkedInIcon /></a>
+                            <a target="_blank" rel="noreferrer" href="https://www.instagram.com/_yashgupta1/"><InstagramIcon /></a>
+                            <a target="_blank" rel="noreferrer" href="https://www.facebook.com/profile.php?id=100012838808775"><FacebookIcon /></a>
+                            <a target="_blank" rel="noreferrer" href="https://twitter.com/YashGup02731446"><TwitterIcon /></a>
                         </div>
                         <Text mt="3">Full Stack Web Developer</Text>
                         <Text>Google Certified Digital Marketer</Text>
@@ -63,9 +63,9 @@ const OurTeam = () => {
                         <Heading fontSize="2xl" color="#514A9D" mt="2">UTKARSH SHARMA</Heading>
                         <Heading size="sm" mb="2">Co-Founder</Heading>
                         <div>
-                            <a href="https://www.instagram.com/_yashgupta1/"><InstagramIcon /></a>
-                            <a href="https://www.facebook.com/profile.php?id=100012838808775"><FacebookIcon /></a>
-                            <a href="https://twitter.com/YashGup02731446"><TwitterIcon /></a>
+                            <a target="_blank" rel="noreferrer" href="https://instagram.com/utkarrsh.sharma?utm_medium=copy_link"><InstagramIcon /></a>
+                            <a target="_blank" rel="noreferrer" href="https://www.facebook.com/profile.php?id=100012838808775"><FacebookIcon /></a>
+                            <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/utkarsh-sharma-648a52214"><LinkedInIcon /></a>
                         </div>
                         <Text mt="3">Data Analyst</Text>
                         <Text>Dream11 Hacker</Text>

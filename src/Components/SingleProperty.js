@@ -5,11 +5,12 @@ import { useParams } from 'react-router';
 import { db } from '../firebase';
 import MetaDecorator from '../Components/MetaDecorator';
 import Carousel from 'react-bootstrap/Carousel'
+import Footer from './Footer';
 
 const SingleProperty = () => {
     const [properties, setProperties] = useState([])
     const { id } = useParams();
-    
+
     useEffect(() => {
         db
             .collection('propertyData')
@@ -151,6 +152,7 @@ const SingleProperty = () => {
                         </div>
                     ))
             }
+            <Footer />
         </div>
     )
 }

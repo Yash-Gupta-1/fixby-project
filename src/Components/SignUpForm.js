@@ -1,6 +1,6 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle } from '@chakra-ui/alert'
 import { Box } from '@chakra-ui/layout'
-import { Input, FormLabel } from '@material-ui/core'
+import { Input } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
 import { auth } from '../firebase'
@@ -41,7 +41,6 @@ const SignUpForm = () => {
 
         }
     }
-
 
 
     return (

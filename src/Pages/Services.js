@@ -8,6 +8,7 @@ const Services = () => {
     useEffect(() => {
         AOS.init({ duration: 700 })
     }, [])
+    
     return (
         <div className="services" data-aos="fade-up">
             
@@ -40,7 +41,7 @@ const Services = () => {
                     </div>
                     <div className="bottom">
                         <Heading className="center" fontSize="2xl" color="#514A9D">Sale</Heading>
-                        <Text className="center" color="gray" mt="5">Sale your any kind of property at the cost which you will decide.</Text>
+                        <Text className="center" color="gray" mt="5">Sale your any type of property at the cost which you will decide.</Text>
                         <Text className="center" color="gray">Give your property in good hands.</Text>
                     </div>
                 </div>

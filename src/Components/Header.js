@@ -178,17 +178,17 @@ const Header = () => {
     const history = useHistory()
 
     return (
-        <div className="header_main">
+        <header className="header_main">
             <div className="header">
                 <div className="headerLeft">
                     <NavLink to="/">
                         <b>
                             {/* <img src="/images/logo1.png" alt="fixxcap logo" /> */}
-                            <Heading as="h1" fontWeight="semibold"><em>fixxcap</em></Heading>
+                            <Heading as="h1" fontWeight="semibold"><em>FixBuy</em></Heading>
                         </b>
                     </NavLink>
                 </div>
-                <div className="headerRight">
+                <nav className="headerRight">
                     <ul className="menuLeft">
                         <li>
                             <NavLink activeClassName="headerActive" to={"/"} exact>Home</NavLink>
@@ -267,11 +267,11 @@ const Header = () => {
                     <div className="menuRight">
                         <DrawerOne />
                     </div>
-                </div>
+                </nav>
             </div>
 
             <ScrollIndicator />
-        </div>
+        </header>
     )
 }
 

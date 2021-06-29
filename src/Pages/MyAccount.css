@@ -135,6 +135,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+}
+
+.myRighTop_left .customFile {
+  cursor: pointer;
+}
+
+.myRighTop_left .customFile > .MuiSvgIcon-root {
+  font-size: 2rem;
+  margin-top: 5px;
+  cursor: pointer;
 }
 
 .myRighTop_leftServie {

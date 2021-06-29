@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch, HashRouter } from 'react-router-dom';
 import { ThemeProvider, theme, ColorModeProvider, CSSReset } from "@chakra-ui/react"
 import Home from './Home';
 import Header from './Components/Header';
@@ -64,7 +64,7 @@ function App() {
               <PropagateLoader color={"#302b63"} loading={loading} css={override} size={25} />
             </div>
           ) :
-            <BrowserRouter>
+            <HashRouter>
               <Header />
               <ScrollToTop />
               <Switch>
@@ -88,7 +88,7 @@ function App() {
                 </Route>
                 <Route component={Login} path="/login" />
               </Switch>
-            </BrowserRouter>
+            </HashRouter>
         }
       </ColorModeProvider>
     </ThemeProvider >

@@ -31,7 +31,7 @@ const Property = (props) => {
     }
 
     const saveProperty = () => {
-        console.log('Save fire');
+        console.log('Save fire', props.id);
     }
 
     const deleteProperty = async (id) => {
@@ -56,7 +56,6 @@ const Property = (props) => {
                             alt={props.img1}
                             src={props.img1}
                             placeholderSrc="https://i0.wp.com/reviveyouthandfamily.org/wp-content/uploads/2016/11/house-placeholder.jpg?ssl=1"
-                        // effect="opacity"
                         />
                     </NavLink>
                 </div>
