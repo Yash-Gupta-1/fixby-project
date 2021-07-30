@@ -32,13 +32,14 @@
   justify-content: space-around;
 }
 
-.customFile img {
+.customFile .MuiSvgIcon-root {
   width: 70px;
   object-fit: contain;
+  color: #302b63;
 }
 
 .sellorrentPics_Bottom label {
-  border: 2px solid gray;
+  border: 2px solid #514a9d;
   border-radius: 50px;
   width: 100px;
   height: 100px;

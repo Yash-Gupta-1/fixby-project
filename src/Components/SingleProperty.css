@@ -6,6 +6,20 @@
   flex: 1;
 }
 
+.singleprop_details .carousel-control-next,
+.carousel-control-prev {
+  z-index: 0;
+}
+
+.singlepropertyHeader {
+  color: white;
+  padding: 15px;
+  width: 60%;
+  border-bottom: 1px solid var(--main-colorOne);
+  border-top: 1px solid var(--main-colorOne);
+  border-radius: 30px;
+}
+
 .left {
   flex: 0.6;
   display: flex;
@@ -75,9 +89,31 @@
   display: none;
 }
 
+.relatedProperty {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.dealerBox {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  background: var(--main-colorOne);
+  color: #fff;
+  border-radius: 30px;
+}
+
 @media screen and (max-width: 767px) {
   .leftImg::-webkit-scrollbar {
     display: none;
+  }
+
+  .singlepropertyHeader {
+    width: 100%;
   }
 
   .singleprop_details {

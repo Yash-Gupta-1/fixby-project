@@ -71,6 +71,7 @@
   padding: 10px;
   margin: 15px 0;
   position: relative;
+  cursor: pointer;
 }
 
 .myaccountActive::after {
@@ -111,6 +112,12 @@
   box-shadow: 7px 7px 14px #bebebe, -7px -7px 14px #ffffff; */
 }
 
+.alertMessage {
+  position: fixed;
+  top: 85%;
+  left: 30px;
+}
+
 .myRighTop {
   display: flex;
   flex-direction: column;
@@ -126,11 +133,6 @@
   background: slategray;
 }
 
-.myRighTop form {
-  display: flex;
-  flex-direction: column;
-}
-
 .myRighTop_left {
   display: flex;
   flex-direction: column;
@@ -138,14 +140,37 @@
   position: relative;
 }
 
+.myRighTop_left .divCenter {
+  position: absolute;
+  bottom: 0;
+  right: -50px;
+}
+
 .myRighTop_left .customFile {
   cursor: pointer;
+  background: #302b63;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+}
+
+.myRighTop_left .customFile:hover {
+  opacity: 0.8;
 }
 
 .myRighTop_left .customFile > .MuiSvgIcon-root {
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-top: 5px;
   cursor: pointer;
+  color: #fff;
+}
+
+.myRighTop_leftForm {
+  width: 70%;
 }
 
 .myRighTop_leftServie {
@@ -192,7 +217,10 @@
 }
 
 .myaccountPost {
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .myaccountPost a {
@@ -202,14 +230,6 @@
 .myaccountPost a hover {
   text-decoration: none;
   color: black;
-}
-
-.mypostDiv {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
 }
 
 .myaccountPost .property {
@@ -273,6 +293,7 @@
 
   .myRighTop {
     width: 100vw;
+    display: flex;
     flex-direction: column;
     justify-content: center;
   }
@@ -280,6 +301,10 @@
   .myRighTop_leftServie a {
     margin: 10px 0;
     width: 48%;
+  }
+
+  .myRighTop_leftForm {
+    width: 100%;
   }
 
   /* .myaccountPost {

@@ -42,6 +42,7 @@
   left: 46.9%;
   text-align: center;
   transform: translateX(-50%);
+  font-weight: bold;
 }
 
 .loginConnect {

@@ -183,8 +183,7 @@ const Header = () => {
                 <div className="headerLeft">
                     <NavLink to="/">
                         <b>
-                            {/* <img src="/images/logo1.png" alt="fixxcap logo" /> */}
-                            <Heading as="h1" fontWeight="semibold"><em>FixBuy</em></Heading>
+                            <Heading as="h1" fontWeight="semibold"><em>FixBy</em></Heading>
                         </b>
                     </NavLink>
                 </div>
@@ -230,8 +229,7 @@ const Header = () => {
                                                 </Link>
                                                 <MenuItem onClick={() => {
                                                     auth.signOut();
-                                                    history.push("/")
-
+                                                    history.replace('/')
                                                 }}>Logout </MenuItem>
                                             </MenuGroup>
                                         </MenuList>

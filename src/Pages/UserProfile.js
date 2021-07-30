@@ -23,7 +23,7 @@ const UserProfile = () => {
 
     return (
         <div className='userProfile'>
-            <MetaDecorator title="fixxcap - User Profile" description="This page available for developer" />
+            <MetaDecorator title="FixBy - User Profile" description="This page available for developer" />
             <Heading as="h1" size="lg" className="center h1 mt3 mb3">User Details</Heading>
             <div className="profileBox p2 mb2">
                 <table>

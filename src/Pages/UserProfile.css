@@ -4,6 +4,13 @@
   justify-content: center;
 }
 
+.profileBox {
+  width: 100%;
+  overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;

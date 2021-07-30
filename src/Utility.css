@@ -26,6 +26,9 @@
 .colorTextOne {
   color: #302b63;
 }
+.colorTextTwo {
+  color: #514a9d;
+}
 
 .muiavatar {
   background: slategray;
@@ -113,6 +116,13 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.divCenter {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 }
 
 .box {

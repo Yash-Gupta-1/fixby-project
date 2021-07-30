@@ -18,7 +18,7 @@ const OurTeam = () => {
 
     return (
         <div className="ourteam" >
-            <MetaDecorator title="fixxcap - fixxcap Team" description="This page has Founder & CEO and Co-Founder of fixxcap " />
+            <MetaDecorator title="FixBy - FixBy Team" description="This page has Founder & CEO and Co-Founder of FixBy " />
             <Heading as="h1" className="title center h1">Our Team</Heading>
 
             <div className="teamCards" data-aos="fade-up">
@@ -34,7 +34,7 @@ const OurTeam = () => {
                             <a target="_blank" rel="noreferrer" href="https://www.facebook.com/profile.php?id=100012838808775"><FacebookIcon /></a>
                             <a target="_blank" rel="noreferrer" href="https://twitter.com/YashGup02731446"><TwitterIcon /></a>
                         </div>
-                        <Text mt="3">Tuitor at <br /> The Right Guru</Text>
+                        <Text mt="3">Partner with <br /> The Right Guru</Text>
                         {/* <Text>Youtuber</Text> */}
                     </div>
                 </div>
@@ -52,7 +52,7 @@ const OurTeam = () => {
                             <a target="_blank" rel="noreferrer" href="https://twitter.com/YashGup02731446"><TwitterIcon /></a>
                         </div>
                         <Text mt="3">Full Stack Web Developer</Text>
-                        <Text>Google Certified Digital Marketer</Text>
+                        <Text>Digital Marketer</Text>
                     </div>
                 </div>
                 <div className="teamCard mt5" data-aos="fade-up">
@@ -68,7 +68,7 @@ const OurTeam = () => {
                             <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/utkarsh-sharma-648a52214"><LinkedInIcon /></a>
                         </div>
                         <Text mt="3">Data Analyst</Text>
-                        <Text>Dream11 Hacker</Text>
+                        {/* <Text>Dream11 Hacker</Text> */}
                     </div>
                 </div>
             </div>

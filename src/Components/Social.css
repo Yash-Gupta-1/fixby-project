@@ -1,0 +1,47 @@
+.social {
+  display: flex;
+  flex-direction: column;
+}
+.social__content {
+  display: flex;
+  width: 45px;
+  height: 45px;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  padding: 10px;
+  border-radius: 30px;
+  margin-bottom: 10px;
+  margin-right: 5px;
+}
+
+.social__content:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.social__bodyLinks .rawDis {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.social__bodyLinks .rawDis .MuiSvgIcon-root {
+  margin-right: 10px;
+}
+
+.insta {
+  background: #e84e89;
+}
+
+.fb {
+  background: #007cba;
+}
+
+.twitter {
+  background: #63cdf1;
+}
+
+.whatsapp {
+  background: #00e676;
+}

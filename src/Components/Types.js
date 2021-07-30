@@ -33,6 +33,11 @@ const Types = () => {
                         <Text>Villa</Text>
                     </div>
                 </div>
+                <div className="container left" data-aos="fade-up">
+                    <div className="content">
+                        <Text>Land</Text>
+                    </div>
+                </div>
             </div>
         </div>
     )

@@ -24,6 +24,7 @@
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.2.2",
     "react-lazy-load-image-component": "^1.5.1",
+    "react-qr-code": "^2.0.0",
     "react-redux": "^7.2.3",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",

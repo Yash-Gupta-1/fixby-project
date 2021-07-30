@@ -19,6 +19,9 @@ import PropagateLoader from "react-spinners/PropagateLoader";
 import SingleProperty from './Components/SingleProperty';
 import UserProfile from './Pages/UserProfile';
 import Login from './Components/Login';
+import SingleOwner from './Pages/SingleOwner';
+import PrivacyPolicy from './Pages/PrivacyPolicy';
+import TermsAndCondition from './Pages/TermsAndCondition';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -65,29 +68,65 @@ function App() {
             </div>
           ) :
             <HashRouter>
-              <Header />
-              <ScrollToTop />
-              <Switch>
-                <Route path="/" exact>
-                  <Home />
-                </Route>
-                <Route path="/navbar">
-                  <Header />
-                </Route>
-                <Route component={BuyProperty} path="/buy-or-rentproperty" />
-                <Route component={OurTeam} path="/ourteam" />
-                <Route component={Contact} path="/contact" />
-                <Route path="/myaccount">
-                  <MyAccount />
-                </Route>
-                <Route component={Sell} path="/sell-or-rentproperty" />
-                <Route component={EmailVerify} path="/emailvarification" />
-                <Route component={UserProfile} path="/userprofile" />
-                <Route path="/:id">
-                  <SingleProperty />
-                </Route>
-                <Route component={Login} path="/login" />
-              </Switch>
+              <div className="app">
+                <Header />
+                <ScrollToTop />
+                <Switch>
+                  <Route exact path="/">
+                    <Home />
+                  </Route>
+
+                  <Route path="/buy-or-rentproperty">
+                    <BuyProperty />
+                  </Route>
+
+                  <Route path="/ourteam">
+                    <OurTeam />
+                  </Route>
+
+                  <Route path="/contact">
+                    <Contact />
+                  </Route>
+
+                  <Route path="/myaccount">
+                    <MyAccount />
+                  </Route>
+
+                  <Route path="/sell-or-rentproperty">
+                    <Sell />
+                  </Route>
+
+                  <Route path="/emailvarification">
+                    <EmailVerify />
+                  </Route>
+
+                  <Route path="/userprofile">
+                    <UserProfile />
+                  </Route>
+
+                  <Route path="/login">
+                    <Login />
+                  </Route>
+
+                  <Route path="/privacypolicy">
+                    <PrivacyPolicy />
+                  </Route>
+
+                  <Route path="/termsandcondition">
+                    <TermsAndCondition />
+                  </Route>
+                  
+                  <div>
+                    <Route path="/:currentuserid">
+                      <SingleOwner />
+                    </Route>
+
+                    <Route path="/:id">
+                      <SingleProperty />
+                    </Route>
+                  </div>
+                </Switch>
+              </div>
             </HashRouter>
         }
       </ColorModeProvider>

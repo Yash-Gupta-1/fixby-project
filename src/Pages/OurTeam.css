@@ -14,7 +14,7 @@
 .teamCard {
   max-width: 300px;
   width: 100%;
-  height: fit-content;
+  height: 500px;
   border-radius: 30px;
   background: #e0e0e0;
   box-shadow: 9px 9px 18px #9f9f9f, -9px -9px 18px #ffffff;

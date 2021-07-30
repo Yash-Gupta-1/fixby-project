@@ -55,7 +55,7 @@ const Property = (props) => {
                         <LazyLoadImage
                             alt={props.img1}
                             src={props.img1}
-                            placeholderSrc="https://i0.wp.com/reviveyouthandfamily.org/wp-content/uploads/2016/11/house-placeholder.jpg?ssl=1"
+                            placeholderSrc="http://localhost:3000/images/rent1.png"
                         />
                     </NavLink>
                 </div>

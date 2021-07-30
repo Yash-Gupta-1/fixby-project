@@ -15,18 +15,22 @@ import { Button, Input } from '@material-ui/core';
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
 import MetaDecorator from '../Components/MetaDecorator';
-// import NotFound from '../Components/NotFound';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../features/userSlice';
 
 const BuyProperty = () => {
     const [properties, setProperties] = useState([]);
-    const [filterProperties, setFilterProperties] = useState([]);
     const { isOpen, onOpen, onClose } = useDisclosure()
     const firstField = React.useRef()
+    const [searchProp, setSearchProp] = useState('')
     const [loading, setLoading] = useState(false);
+    const [slideDoor, setSlideDoor] = useState(false);
     const [scale, setScale] = useState(false);
+    const user = useSelector(selectUser)
 
     useEffect(() => {
         setLoading(true)
+        setSlideDoor(true)
         let isCancelled = false;
         const runAsync = async () => {
             try {
@@ -236,34 +240,30 @@ const BuyProperty = () => {
     margin: 0 auto;
   `;
 
-    const searchedProperty = (event) => {
-        const searchText = event.target.value
-        const newResult = properties.filter(({ data }) => {
-            if ((data.purpose).toLowerCase().includes(searchText.toLowerCase())) {
-                return data
-            } else if ((data.price).toLowerCase().includes(searchText.toLowerCase())) {
-                return data
-            } else if ((data.bhkInfo).toLowerCase().includes(searchText.toLowerCase())) {
-                return data
-            } else if ((data.type).toLowerCase().includes(searchText.toLowerCase())) {
-                return data
-            } else if ((data.locality).toLowerCase().includes(searchText.toLowerCase())) {
-                return data
-            }
+    // const searchedProperty = (searchTerm) => {
+    //     if (searchTerm !== "") {
+    //         const newProp = properties.filter(({ data }) => {
+    //             console.log('search data', data);
 
-            return data
-        })
+    //             return Object
+    //                 .values(data)
+    //                 .join(" ")
+    //                 .toLowerCase()
+    //                 .includes(searchTerm.toLowerCase())
+    //         })
+    //         setProperties(newProp)
+    //     } else if (searchTerm === "") {
+    //         return data
+    //     }
+    // }
 
-        if (searchText === "") {
-            setFilterProperties([])
-        } else (
-            setFilterProperties(newResult)
-        )
-    }
+    // useEffect(() => {
+    //     searchedProperty(searchProp)
+    // }, [searchProp])
 
     return (
         <div className="buyprop">
-            <MetaDecorator title="FixBy - Buy or Rent Any Listed Property" description="This page has all the properties listed by the FixBy users" />
+            <MetaDecorator title="fixxcap - Buy or Rent Any Listed Property" description="This page has all the properties listed by the fixxcap users" />
             <div className="buypropTop p1">
                 <div className="buypropFilter rawDis">
                     <div className="m1">
@@ -316,7 +316,7 @@ const BuyProperty = () => {
                         <DrawerOverlay>
                             <DrawerContent>
                                 <DrawerBody className="center">
-                                    <Input type="text" style={{ width: "100%" }} onChange={searchedProperty} placeholder="search (exp: house, flat, 1000000)" />
+                                    <Input type="text" style={{ width: "100%" }} onChange={(e) => setSearchProp(e.target.value)} placeholder="search (exp: house, flat, 1000000)" />
                                 </DrawerBody>
                             </DrawerContent>
                         </DrawerOverlay>
@@ -334,29 +334,34 @@ const BuyProperty = () => {
                         </div>
                     ) : (
                         <>
-
                             {
-                                filterProperties.length !== 0 && (
-                                    filterProperties.map(({ id, data }) => (
-                                        <div key={id} data-aos="fade-up">
+                                properties
+                                    .filter(({ data }) => {
+                                        if (searchProp === "") {
+                                            return data
+                                        } else if ((data.type).toLowerCase().includes(searchProp.toLowerCase())) {
+                                            return data
+                                        } else if ((data.price).toLowerCase().includes(searchProp.toLowerCase())) {
+                                            return data
+                                        }
+                                        else if ((data.purpose).toLowerCase().includes(searchProp.toLowerCase())) {
+                                            return data
+                                        } else if ((data.locality).toLowerCase().includes(searchProp.toLowerCase())) {
+                                            return data
+                                        } else if ((data.bhkInfo).toLowerCase().includes(searchProp.toLowerCase())) {
+                                            return data
+                                        } else if (data.currentUserId === user.uid) {
+                                            return data
+                                        }
+                                        return data
+                                    })
+                                    .map(({ id, data }) => (
+                                        <div key={id} data-aos="fade-up" className={!slideDoor && "doorh1Display"}>
                                             <Property key={id} id={id} price={data.price} time={data.timestamp} title={data.title} purpose={data.purpose} img1={data.img1} locality={data.locality} bhk={data.bhkInfo} type={data.type}
                                             />
                                         </div>
                                     ))
-                                )
                             }
-
-                            {
-                                filterProperties.length === 0 && (
-                                    properties.map(({ id, data }) => (
-                                        <div key={id} data-aos="fade-up">
-                                            <Property key={id} id={id} price={data.price} time={data.timestamp} title={data.title} purpose={data.purpose} img1={data.img1} locality={data.locality} bhk={data.bhkInfo} type={data.type}
-                                            />
-                                        </div>
-                                    ))
-                                )
-                            }
-
                         </>
                     )
 

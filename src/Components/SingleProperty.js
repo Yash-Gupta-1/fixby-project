@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import './SingleProperty.css';
-import { Heading, Text } from '@chakra-ui/layout';
+import { Heading, Text, } from '@chakra-ui/layout';
 import { useParams } from 'react-router';
 import { db } from '../firebase';
 import MetaDecorator from '../Components/MetaDecorator';
 import Carousel from 'react-bootstrap/Carousel'
 import Footer from './Footer';
+import Property from './Porperty';
+import { Avatar } from '@chakra-ui/react';
+import { NavLink } from 'react-router-dom';
 
 const SingleProperty = () => {
     const [properties, setProperties] = useState([])
+    const [userData, setUserData] = useState([])
     const { id } = useParams();
+    let relatedPurpose = ""
 
     useEffect(() => {
         db
@@ -22,6 +27,17 @@ const SingleProperty = () => {
                     })
                     ))
                 })
+
+        db
+            .collection('userData')
+            .onSnapshot(
+                snapshot => {
+                    setUserData(snapshot.docs.map(doc => ({
+                        idKey: doc.id,
+                        userdata: doc.data()
+                    })
+                    ))
+                })
     }, [])
 
 
@@ -30,15 +46,24 @@ const SingleProperty = () => {
         <div className="singleprop p1">
             {
                 properties
-                    .filter(({ idKey }) => idKey === id)
+                    .filter(({ data, idKey }) => {
+                        if (idKey === id) {
+                            relatedPurpose = data.purpose
+                            return data
+                        }
+                    })
                     .map(({ idKey, data }) => (
                         <div key={idKey}>
 
-                            <MetaDecorator title={`fixxcap - ${data.title} - ${data.discription}`} description="This page available for developer" />
-                            <Heading as="h1" color="#302b63" textAlign="center" padding="1" size="lg">{data.title}</Heading>
-                            <div >
-                                <Text color="#514a9d" className="center">Porperty Code : {idKey.substring(0, 7)}</Text>
-                                <Text color="#514a9d" className="center">Posted By : {data.userName}</Text>
+                            <MetaDecorator title={`FixBy - ${data.title} - ${data.discription}`} description="This page available for developer" />
+                            <div className="divCenter">
+                                <div className="singlepropertyHeader">
+                                    <Heading as="h1" color="#302b63" textAlign="center" padding="1" size="lg">{data.title}</Heading>
+                                    <div>
+                                        <Text color="#514a9d" className="center">Porperty Code : {idKey.substring(0, 7)}</Text>
+                                        <Text color="#514a9d" className="center">Posted By : {data.userName}</Text>
+                                    </div>
+                                </div>
                             </div>
                             <div className="singleprop_details mt3 p1">
                                 <div className="left">
@@ -111,6 +136,29 @@ const SingleProperty = () => {
                                         </div>
                                     </div>
 
+                                    {
+                                        userData
+                                            .filter(({ userdata }) => userdata.currentUserId === data.currentUserId)
+                                            .map(({ userdata }, index) => (
+                                                <div className="dealerBox p3" key={index}>
+                                                    <NavLink to={`/${data.currentUserId}`} className="rawDis">
+                                                        <Avatar marginRight="3" className="Avatar muiavatar" src={userdata.profile} alt={userdata.userName} />
+                                                        <div className="footerRightContent">
+                                                            <Heading fontSize="md" color>{userdata && userdata.userName}</Heading>
+                                                            <Text as="p" fontSize="lg">{userdata.listedBy}</Text>
+                                                        </div>
+                                                    </NavLink>
+                                                    <div className="dealContact">
+                                                        <Heading fontSize="md">Contact Now</Heading>
+
+                                                        <a href={`tel:+91${userdata.userNumber}`} as="p" fontSize="lg">{userdata.userNumber}</a>
+                                                    </div>
+                                                </div>
+
+                                            ))
+                                    }
+
+
                                     <div className="leftDetails mt3 mb5">
                                         <Heading as="h3" className="center" color="gray.700" size="lg" mt="10" mb="3">Property Details</Heading>
                                         <hr />
@@ -142,16 +190,38 @@ const SingleProperty = () => {
                                         </div>
                                         <div className="leftDescription">
                                             <hr />
-                                            <Heading as="h3" className="center" color="gray.700" size="lg" mt="10" mb="3">Discription</Heading>
+                                            <Heading as="h3" className="center" color="gray.700" size="lg" mt="10" mb="3">Description</Heading>
                                             <hr />
                                             <Text fontSize="larger" m="10" textAlign="start">{data.discription}</Text>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
                     ))
             }
+
+            <div className="related">
+                <Heading as="h3" color="#302b63" textAlign="start" marginLeft="5" padding="1" size="md">Related Property</Heading>
+
+                <div className="relatedProperty">
+                    {
+                        properties
+                            .filter(({ data, idKey }) => data.purpose === relatedPurpose && idKey !== id)
+                            .slice(0, 4)
+                            .map(({ id, data }) => (
+                                <div className="mypostDiv">
+                                    <Property key={id} id={id} price={data.price} time={data.timestamp} title={data.title} purpose={data.purpose} img1={data.img1} locality={data.locality} bhk={data.bhkInfo} type={data.type}
+                                    />
+                                </div>
+                            ))
+                    }
+
+                </div>
+            </div>
+
             <Footer />
         </div>
     )

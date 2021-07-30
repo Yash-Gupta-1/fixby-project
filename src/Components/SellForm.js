@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SellForm.css';
 import '../Utility.css'
-import { useForm } from 'react-hook-form';
-// import { yupResolver } from '@hookform/resolvers/yup';
-// import * as yup from 'yup';
+// import { useForm } from 'react-hook-form';
 import {
     FormControl, FormLabel, HStack, RadioGroup, Radio, Select, Input, Alert, AlertTitle, AlertDescription, AlertIcon, Box, Textarea, Heading, Text, FormHelperText
 } from "@chakra-ui/react"
@@ -15,17 +13,12 @@ import MetaDecorator from '../Components/MetaDecorator';
 import HouseOutlinedIcon from '@material-ui/icons/HouseOutlined';
 import { Spinner } from "@chakra-ui/react"
 
-// const schema = yup.object().shape({
-//     userName: yup.string().required(),
-//     price: yup.string().min("5000").required(),
-// });
 
 const SellForm = () => {
     const user = useSelector(selectUser)
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    // const { register, handleSubmit, formState: { errors } } = useForm();
     const [listedBy, setListedBy] = useState('');
-    const [userName, setUserName] = useState(user.displayName);
-    const [userNumber, setUserNumber] = useState('');
+    const [userName] = useState(user.displayName);
     const [purpose, setPurpose] = useState('');
     const [type, setType] = useState('');
     const [bhkInfo, setBhkInfo] = useState('');
@@ -54,39 +47,36 @@ const SellForm = () => {
     const [spin5, setSpin5] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const handleUpload = (data) => {
-        // e.preventDefault()
-        console.log('Form Data', data);
-
-        // setLoading(true)
-        // db.collection("propertyData").add({
-        //     listedBy: listedBy,
-        //     userName: userName,
-        //     userNumber: userNumber,
-        //     userEmail: user.email,
-        //     purpose: purpose,
-        //     type: type,
-        //     bhkInfo: bhkInfo,
-        //     bathrooms: bathrooms,
-        //     furnishing: furnishing,
-        //     parking: parking,
-        //     builtupArea: builtupArea,
-        //     floorNo: floorNo,
-        //     title: title,
-        //     discription: discription,
-        //     city: city,
-        //     address1: address1,
-        //     address2: address2,
-        //     locality: locality,
-        //     price: price,
-        //     img1: imageFirst,
-        //     img2: imageSecond,
-        //     img3: imageThird,
-        //     img4: imageFourth,
-        //     img5: imageFifth,
-        //     currentUserId: user.uid,
-        //     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        // });
+    const handleUpload = (e) => {
+        e.preventDefault()
+        setLoading(true)
+        db.collection("propertyData").add({
+            listedBy: listedBy,
+            userName: userName,
+            userEmail: user.email,
+            purpose: purpose,
+            type: type,
+            bhkInfo: bhkInfo,
+            bathrooms: bathrooms,
+            furnishing: furnishing,
+            parking: parking,
+            builtupArea: builtupArea,
+            floorNo: floorNo,
+            title: title,
+            discription: discription,
+            city: city,
+            address1: address1,
+            address2: address2,
+            locality: locality,
+            price: price,
+            img1: imageFirst,
+            img2: imageSecond,
+            img3: imageThird,
+            img4: imageFourth,
+            img5: imageFifth,
+            currentUserId: user.uid,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
 
         setTimeout(() => {
             setPublished(true)
@@ -179,40 +169,16 @@ const SellForm = () => {
 
     return (
         <div className="sellform">
-            <MetaDecorator title="FixBuy - Sell or Rent Your Property" description="This page available for developer" />
+            <MetaDecorator title="FixBy - Sell or Rent Your Property" description="This page available for developer" />
 
-            <form onSubmit={handleSubmit(handleUpload)}>
-                <div className="personalDetail">
-                    <Heading className="h2 center" size="md" mt="10">Personal Details</Heading>
-
-                    <FormControl marginTop="5" isRequired>
-                        <FormLabel>Listed By</FormLabel>
-                        <Select variant="filled" placeholder="Select profile" {...register("listedBy", { required: "This information is required" })}>
-                            <option>Owner</option>
-                            <option>Builder</option>
-                            <option>Agent</option>
-                        </Select>
-                    </FormControl>
-
-                    <FormControl marginTop="5" isRequired>
-                        <FormLabel>Your Name</FormLabel>
-                        <Input variant="filled" name="userName" type="text" {...register("userName", { required: "This information is required" })} placeholder="Type your Name" required />
-                    </FormControl>
-
-                    <FormControl marginTop="5" isRequired>
-                        <FormLabel>Phone Number</FormLabel>
-                        <Input variant="filled" name="userNumber" type="phone" {...register("userNumber", { required: "This information is required" })} placeholder="Type your Number" />
-                        <FormHelperText>Please provide valid and currently used number</FormHelperText>
-                    </FormControl>
-                </div>
-
+            <form onSubmit={handleUpload}>
                 <div className="propertyDetails">
                     <Heading className="h2 center" size="md" mt="10">Property Details</Heading>
 
                     <FormControl marginTop="5" as="fieldset" isRequired>
                         <FormLabel as="legend">Purpose</FormLabel>
                         <RadioGroup defaultValue="">
-                            <HStack display="flex" alignItems="center" spacing="24px" name="purpose" {...register("purpose", { required: "This information is required" })} >
+                            <HStack display="flex" alignItems="center" spacing="24px" name="purpose" value={purpose} onChange={(e) => setPurpose(e.target.value)} >
                                 <div className="btnOutline">
                                     <Radio value="Sale">Sale</Radio>
                                 </div>
@@ -226,7 +192,8 @@ const SellForm = () => {
 
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>Type</FormLabel>
-                        <Select variant="filled" name="type" placeholder="Select property type" {...register("type", { required: "This information is required" })} required>
+                        <Select variant="filled" name="type" placeholder="Select property type" value={type} onChange
+                            ={(e) => setType(e.target.value)} required>
                             <option>House</option>
                             <option>Flats</option>
                             <option>Land</option>
@@ -240,7 +207,8 @@ const SellForm = () => {
 
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>BHK</FormLabel>
-                        <Select variant="filled" name="bhkinfo" placeholder="BHK Detail" {...register("bhkinfo", { required: "This information is required" })}>
+                        <Select variant="filled" name="bhkinfo" placeholder="BHK Detail" value={bhkInfo} onChange
+                            ={(e) => setBhkInfo(e.target.value)}>
                             <option >1</option>
                             <option>2</option>
                             <option>3</option>
@@ -251,7 +219,8 @@ const SellForm = () => {
 
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>Bathrooms</FormLabel>
-                        <Select variant="filled" name="bathrooms" placeholder="No. of Bathrooms" {...register("bathrooms", { required: "This information is required" })}>
+                        <Select variant="filled" name="bathrooms" placeholder="No. of Bathrooms" value={bathrooms} onChange
+                            ={(e) => setBathrooms(e.target.value)}>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -263,7 +232,8 @@ const SellForm = () => {
 
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>Furnishing</FormLabel>
-                        <Select variant="filled" name="furnishing" placeholder="Furnishing Type" {...register("furnishing", { required: "This information is required" })}>
+                        <Select variant="filled" name="furnishing" placeholder="Furnishing Type" value={furnishing} onChange
+                            ={(e) => setFurnishing(e.target.value)}>
                             <option>Furnished</option>
                             <option>Semi-Furnished</option>
                             <option>Unfurnished</option>
@@ -272,30 +242,35 @@ const SellForm = () => {
 
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>Parking</FormLabel>
-                        <Select variant="filled" name="parking" placeholder="Parking Avaibility" {...register("parking", { required: "This information is required" })}>
-                            <option>Yes</option>
-                            <option>No</option>
+                        <Select variant="filled" name="bathrooms" placeholder="Parking Avaibility" value={parking} onChange
+                            ={(e) => setParking(e.target.value)}>
+                            <option>Open</option>
+                            <option>Close</option>
                         </Select>
                     </FormControl>
 
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>Builtup Area (in gaj)</FormLabel>
-                        <Input variant="filled" name="builtupArea" type="text" {...register("builtupArea", { required: "This information is required" })} placeholder="exp: 100" required />
+                        <Input variant="filled" name="builtupArea" type="text" value={builtupArea} onChange
+                            ={(e) => setBuiltupArea(e.target.value)} placeholder="exp: 100" required />
                     </FormControl>
 
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>Floor No</FormLabel>
-                        <Input variant="filled" name="floorNo" type="text" {...register("floorNo", { required: "This information is required" })} placeholder="No. of floors" />
+                        <Input variant="filled" name="floorNo" type="text" value={floorNo} onChange
+                            ={(e) => setFloorNo(e.target.value)} placeholder="No. of floors" />
                     </FormControl>
 
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>Title</FormLabel>
-                        <Input variant="filled" name="title" type="text" {...register("title", { required: "This information is required" })} placeholder="Title for you post" required />
+                        <Input variant="filled" name="title" type="text" value={title} onChange
+                            ={(e) => setTitle(e.target.value)} placeholder="Title for you post" required />
                     </FormControl>
 
                     <FormControl marginTop="5" isRequired>
-                        <FormLabel>Description</FormLabel>
-                        <Textarea variant="filled" name="discription" type="text" {...register("discription", { required: "This information is required" })} placeholder="Description about your property" required />
+                        <FormLabel>Discription</FormLabel>
+                        <Textarea variant="filled" type="text" value={discription} onChange
+                            ={(e) => setDiscription(e.target.value)} placeholder="Discription about your property" required />
                     </FormControl>
                 </div>
 
@@ -304,22 +279,26 @@ const SellForm = () => {
 
                     <FormControl marginTop="5" id="title" isRequired>
                         <FormLabel>City</FormLabel>
-                        <Input variant="filled" name="city" type="text" {...register("city", { required: "This information is required" })} placeholder="City" required />
+                        <Input variant="filled" name="city" type="text" value={city} onChange
+                            ={(e) => setCity(e.target.value)} placeholder="City" required />
                     </FormControl>
 
                     <FormControl marginTop="5" id="title" isRequired>
                         <FormLabel>Address 1</FormLabel>
-                        <Input variant="filled" name="address1" type="text" {...register("address1", { required: "This information is required" })} placeholder="House No & Street No" required />
+                        <Input variant="filled" name="address1" type="text" value={address1} onChange
+                            ={(e) => setAddress1(e.target.value)} placeholder="House No & Street No" required />
                     </FormControl>
 
                     <FormControl marginTop="5" id="title" isRequired>
                         <FormLabel>Address 2</FormLabel>
-                        <Input variant="filled" name="address2" type="text" {...register("address2", { required: "This information is required" })} placeholder="Address" />
+                        <Input variant="filled" name="address2" type="text" value={address2} onChange
+                            ={(e) => setAddress2(e.target.value)} placeholder="Address" />
                     </FormControl>
 
                     <FormControl marginTop="5" id="title" isRequired>
                         <FormLabel>Locality</FormLabel>
-                        <Input variant="filled" name="locality" type="text" {...register("locality", { required: "This information is required" })} placeholder="Locality" required />
+                        <Input variant="filled" name="locality" type="text" value={locality} onChange
+                            ={(e) => setLocality(e.target.value)} placeholder="Locality" required />
                     </FormControl>
                 </div>
 
@@ -329,91 +308,131 @@ const SellForm = () => {
 
                     <FormControl marginTop="5" isRequired>
                         <FormLabel>Price</FormLabel>
-                        <Input {...register("price", { required: true })} variant="filled" name="price" type="text" placeholder="Price in Rupees" />
+                        <Input value={price} onChange={(e) => setPrice(e.target.value)} variant="filled" name="price" type="text" placeholder="Price in Rupees" />
                         <FormHelperText>Price should be greater than 2000</FormHelperText>
                     </FormControl>
-                    <p style={{ color: "red" }}>{errors.price?.message}</p>
 
-                    <div className="sellorrentPics mt4">
-                        <div className="sellorrentPics_Top">
-                            <Heading className="h2 center" size="md" mt="20">Photos</Heading>
-                            <Text color="dodgerblue">Post best 5 photos</Text>
-                        </div>
+                    {
+                        purpose === "Sale" ? (
+                            <div className="sellorrentPics mt4">
+                                <div className="sellorrentPics_Top">
+                                    <Heading className="h2 center" size="md" mt="20">Photos</Heading>
+                                    <Text color="dodgerblue">Post best 5 photos</Text>
+                                </div>
 
-                        <div className="sellorrentPics_Bottom mt5">
+                                <div className="sellorrentPics_Bottom mt5">
 
-                            <FormLabel isRequired>
-                                <Input display="none" variant="filled" name="photoFirst" type="file" onChange={handleChangeFirst} required />
-                                <span className="customFile">
-                                    {
-                                        imageFirst ? (
-                                            <img src={imageFirst} alt="First" />
-                                        ) : (
-                                            spin1 ? <Spinner /> : <HouseOutlinedIcon />
-                                        )
-                                    }
-                                </span>
-                            </FormLabel>
+                                    <FormLabel isRequired>
+                                        <Input display="none" variant="filled" name="photoFirst" type="file" onChange={handleChangeFirst} required />
+                                        <span className="customFile">
+                                            {
+                                                imageFirst ? (
+                                                    <img src={imageFirst} alt="First" />
+                                                ) : (
+                                                    spin1 ? <Spinner /> : <HouseOutlinedIcon />
+                                                )
+                                            }
+                                        </span>
+                                    </FormLabel>
 
-                            <FormLabel isRequired>
-                                <Input display="none" variant="filled" name="photoSecond" type="file" onChange={handleChangeSecond} />
-                                <span className="customFile">
-                                    {
-                                        imageSecond ? (
-                                            <img src={imageSecond} alt="Second" />
-                                        ) : (
-                                            spin2 ? <Spinner /> : <HouseOutlinedIcon />
-                                        )
-                                    }
-                                </span>
-                            </FormLabel>
+                                    <FormLabel isRequired>
+                                        <Input display="none" variant="filled" name="photoSecond" type="file" onChange={handleChangeSecond} />
+                                        <span className="customFile">
+                                            {
+                                                imageSecond ? (
+                                                    <img src={imageSecond} alt="Second" />
+                                                ) : (
+                                                    spin2 ? <Spinner /> : <HouseOutlinedIcon />
+                                                )
+                                            }
+                                        </span>
+                                    </FormLabel>
 
-                            <FormLabel isRequired>
-                                <Input display="none" variant="filled" name="photoThird" type="file" onChange={handleChangeThird} />
-                                <span className="customFile">
-                                    {
-                                        imageThird ? (
-                                            <img src={imageThird} alt="Third" />
-                                        ) : (
-                                            spin3 ? <Spinner /> : <HouseOutlinedIcon />
-                                        )
-                                    }
-                                </span>
-                            </FormLabel>
+                                    <FormLabel isRequired>
+                                        <Input display="none" variant="filled" name="photoThird" type="file" onChange={handleChangeThird} />
+                                        <span className="customFile">
+                                            {
+                                                imageThird ? (
+                                                    <img src={imageThird} alt="Third" />
+                                                ) : (
+                                                    spin3 ? <Spinner /> : <HouseOutlinedIcon />
+                                                )
+                                            }
+                                        </span>
+                                    </FormLabel>
 
-                            <FormLabel isRequired>
-                                <Input display="none" variant="filled" name="photoFourth" type="file" onChange={handleChangeFourth} />
-                                <span className="customFile">
-                                    {
-                                        imageFourth ? (
-                                            <img src={imageFourth} alt="Fourth" />
-                                        ) : (
-                                            spin4 ? <Spinner /> : <HouseOutlinedIcon />
-                                        )
-                                    }
-                                </span>
-                            </FormLabel>
+                                    <FormLabel isRequired>
+                                        <Input display="none" variant="filled" name="photoFourth" type="file" onChange={handleChangeFourth} />
+                                        <span className="customFile">
+                                            {
+                                                imageFourth ? (
+                                                    <img src={imageFourth} alt="Fourth" />
+                                                ) : (
+                                                    spin4 ? <Spinner /> : <HouseOutlinedIcon />
+                                                )
+                                            }
+                                        </span>
+                                    </FormLabel>
 
-                            <FormLabel isRequired>
-                                <Input display="none" variant="filled" name="photoFifth" type="file" onChange={handleChangeFifth} />
-                                <span className="customFile">
-                                    {
-                                        imageFifth ? (
-                                            <img src={imageFifth} alt="Fith" />
-                                        ) : (
-                                            spin5 ? <Spinner /> : <HouseOutlinedIcon />
-                                        )
-                                    }
-                                </span>
-                            </FormLabel>
-                        </div>
+                                    <FormLabel isRequired>
+                                        <Input display="none" variant="filled" name="photoFifth" type="file" onChange={handleChangeFifth} />
+                                        <span className="customFile">
+                                            {
+                                                imageFifth ? (
+                                                    <img src={imageFifth} alt="Fith" />
+                                                ) : (
+                                                    spin5 ? <Spinner /> : <HouseOutlinedIcon />
+                                                )
+                                            }
+                                        </span>
+                                    </FormLabel>
+                                </div>
 
-                    </div>
+                            </div>
+                        ) : (
+                            <div className="sellorrentPics mt4">
+                                <div className="sellorrentPics_Top">
+                                    <Heading className="h2 center" size="md" mt="20">Photos</Heading>
+                                    <Text color="dodgerblue">Post best 2 photos</Text>
+                                </div>
+
+                                <div className="sellorrentPics_Bottom mt5">
+
+                                    <FormLabel isRequired>
+                                        <Input display="none" variant="filled" name="photoFirst" type="file" onChange={handleChangeFirst} required />
+                                        <span className="customFile">
+                                            {
+                                                imageFirst ? (
+                                                    <img src={imageFirst} alt="First" />
+                                                ) : (
+                                                    spin1 ? <Spinner /> : <HouseOutlinedIcon />
+                                                )
+                                            }
+                                        </span>
+                                    </FormLabel>
+
+                                    <FormLabel isRequired>
+                                        <Input display="none" variant="filled" name="photoSecond" type="file" onChange={handleChangeSecond} />
+                                        <span className="customFile">
+                                            {
+                                                imageSecond ? (
+                                                    <img src={imageSecond} alt="Second" />
+                                                ) : (
+                                                    spin2 ? <Spinner /> : <HouseOutlinedIcon />
+                                                )
+                                            }
+                                        </span>
+                                    </FormLabel>
+                                </div>
+
+                            </div>
+                        )
+                    }
 
                 </div>
 
                 <div className="submitbtn center">
-                    <button style={{ cursor: !imageFirst ? "not-allowed" : "pointer" }} className="btnFill mt5 mb5 m1" type="submit">
+                    <button className="btnFill mt5 mb5 m1" type="submit">
                         {
                             loading ? <Spinner /> : "Submit"
                         }
