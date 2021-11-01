@@ -4,12 +4,12 @@ import { Heading, Text, } from '@chakra-ui/layout';
 import { useParams } from 'react-router';
 import { db } from '../firebase';
 import MetaDecorator from '../Components/MetaDecorator';
-import Carousel from 'react-bootstrap/Carousel'
+// import Carousel from 'react-bootstrap/Carousel'
 import Footer from './Footer';
 import Property from './Porperty';
 import { Avatar } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
-
+import Carousel from 'react-material-ui-carousel'
 const SingleProperty = () => {
     const [properties, setProperties] = useState([])
     const [userData, setUserData] = useState([])
@@ -67,8 +67,22 @@ const SingleProperty = () => {
                             </div>
                             <div className="singleprop_details mt3 p1">
                                 <div className="left">
-                                    <div>
-                                        <Carousel>
+                                    <div className="slider">
+                                        <Carousel
+                                            swipe={true}
+                                            animation='fade'
+                                            autoPlay={false}
+                                            infinite={true}
+                                            navButtonsAlwaysVisible={true}
+                                        >
+                                            <img src={data.img1 !== "" ? data.img1 : '/images/fixbylogo.png'} alt={data.title} />
+                                            <img src={data.img2 !== "" ? data.img2 : '/images/fixbylogo.png'} alt={data.title} />
+                                            <img src={data.img3 !== "" ? data.img3 : '/images/fixbylogo.png'} alt={data.title} />
+                                            <img src={data.img4 !== "" ? data.img4 : '/images/fixbylogo.png'} alt={data.title} />
+                                            <img src={data.img5 !== "" ? data.img5 : '/images/fixbylogo.png'} alt={data.title} />
+
+                                        </Carousel>
+                                        {/* <Carousel>
                                             <Carousel.Item>
                                                 <img
                                                     className="d-block w-100"
@@ -122,7 +136,7 @@ const SingleProperty = () => {
                                                     </Carousel.Item>
                                                 )
                                             }
-                                        </Carousel>
+                                        </Carousel> */}
                                     </div>
 
                                     <div className="leftPrice p2 mt5 mb3">

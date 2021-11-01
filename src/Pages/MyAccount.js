@@ -22,14 +22,6 @@ import firebase from 'firebase'
 import QRCode from "react-qr-code";
 
 
-// const useStyles = makeStyles((theme) => ({
-//     root: {
-//         '& > *': {
-//             margin: theme.spacing(1),
-//             width: '25ch',
-//         },
-//     },
-// }));
 
 const MyAccount = () => {
     // const classes = useStyles();
@@ -197,13 +189,13 @@ const MyAccount = () => {
                                     }}>
                                         <NavLink activeClassName={posts && "myaccountActive"} to="#">My posts</NavLink>
                                     </li>
-                                    <li onClick={() => {
+                                    {/* <li onClick={() => {
                                         setSaved(true)
                                         setProfileClicked(false)
                                         setPosts(false)
                                     }}>
                                         <NavLink activeClassName={saved && "myaccountActive"} to="#">Saved</NavLink>
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </div>
                             <div className="myaccountLogout">

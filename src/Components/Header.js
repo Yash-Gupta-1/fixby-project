@@ -4,7 +4,12 @@ import './Header.css';
 import { NavLink, Link, useHistory } from 'react-router-dom';
 // import { HashLink as  } from 'react-router-hash-link';
 import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
+import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight';
 import CloseIcon from '@material-ui/icons/Close';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import BookmarksOutlinedIcon from '@material-ui/icons/BookmarksOutlined';
+import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import {
     Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, useDisclosure, Tooltip, Heading, Menu, MenuList, MenuGroup, MenuItem, MenuButton, Text, DrawerFooter,
@@ -34,7 +39,7 @@ function DrawerOne() {
         <>
             {/* <Button onClick={onOpen} className="btnOutline" smooth> */}
             <div className="" onClick={onOpen}>
-                <MenuOutlinedIcon className="svgIcon" />
+                <FormatAlignRightIcon className="svgIcon" />
             </div>
             {/* </Button> */}
             <Drawer
@@ -74,19 +79,11 @@ function DrawerOne() {
                         <DrawerBody>
                             <ul className="mobileMenu">
                                 <li onClick={onClose}>
-                                    <NavLink smooth to="/sell-or-rentproperty" style={{ fontSize: "1.7rem", borderRadius: "50px" }} className="btnFill">
-                                        +
-                                    </NavLink>
-                                </li>
-                                <li onClick={onClose}>
                                     <NavLink activeClassName="headerActive" to={"/"} exact>Home</NavLink>
                                 </li>
-                                <li onClick={onClose}>
-                                    <NavLink activeClassName="headerActive" to={"/buy-or-rentproperty"}>Buy/Rent</NavLink>
-                                </li>
-                                <li onClick={onClose}>
+                                {/* <li onClick={onClose}>
                                     <NavLink activeClassName="headerActive" to={"/ourteam"}>Our Team</NavLink>
-                                </li>
+                                </li> */}
                                 <li onClick={onClose}>
                                     <NavLink activeClassName="headerActive" to={"/contact"}>Contact</NavLink>
                                 </li>
@@ -195,9 +192,9 @@ const Header = () => {
                         <li>
                             <NavLink activeClassName="headerActive" to={"/buy-or-rentproperty"}>Buy/Rent</NavLink>
                         </li>
-                        <li>
+                        {/* <li>
                             <NavLink activeClassName="headerActive" to={"/ourteam"}>Our Team</NavLink>
-                        </li>
+                        </li> */}
                         <li>
                             <NavLink activeClassName="headerActive" to={"/contact"}>Contact</NavLink>
                         </li>
@@ -261,6 +258,8 @@ const Header = () => {
 
                         </li>
                     </ul>
+
+
 
                     <div className="menuRight">
                         <DrawerOne />

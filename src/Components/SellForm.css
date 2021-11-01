@@ -38,6 +38,11 @@
   color: #302b63;
 }
 
+.customFile img {
+  width: fit-content;
+  object-fit: contain;
+}
+
 .sellorrentPics_Bottom label {
   border: 2px solid #514a9d;
   border-radius: 50px;
@@ -47,6 +52,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .customFile > .MuiSvgIcon-root {

@@ -22,6 +22,7 @@ import Login from './Components/Login';
 import SingleOwner from './Pages/SingleOwner';
 import PrivacyPolicy from './Pages/PrivacyPolicy';
 import TermsAndCondition from './Pages/TermsAndCondition';
+import BottomTabs from './Components/BottomTabs';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -115,7 +116,7 @@ function App() {
                   <Route path="/termsandcondition">
                     <TermsAndCondition />
                   </Route>
-                  
+
                   <div>
                     <Route path="/:currentuserid">
                       <SingleOwner />
@@ -126,6 +127,7 @@ function App() {
                     </Route>
                   </div>
                 </Switch>
+                <BottomTabs />
               </div>
             </HashRouter>
         }

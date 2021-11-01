@@ -13,12 +13,22 @@ import ExpandLessOutlinedIcon from '@material-ui/icons/ExpandLessOutlined';
 import { useSelector } from 'react-redux';
 import { selectUser } from './features/userSlice';
 import MetaDecorator from './Components/MetaDecorator';
+// import { db } from './firebase';
+
+export const PropertyData = async () => {
+    const result = await fetch('https://firestore.googleapis.com/v1/projects/fixxcap/databases/(default)/documents/propertyData')
+        .then((res) => res.json())
+        .then((res) => res)
+
+    return result
+}
 
 const Home = () => {
     const user = useSelector(selectUser);
     const emails = ["yashgupta162001@gmail.com",]
     const [showTopButton, setShowTopButton] = useState(false)
     console.log('email array', emails);
+
 
 
 
@@ -31,6 +41,8 @@ const Home = () => {
                 setShowTopButton(false)
             }
         }
+
+        PropertyData()
     }, [])
 
 

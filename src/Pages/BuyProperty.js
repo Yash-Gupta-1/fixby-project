@@ -15,17 +15,32 @@ import { Button, Input } from '@material-ui/core';
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
 import MetaDecorator from '../Components/MetaDecorator';
-// import NotFound from '../Components/NotFound';
+import { PropertyData } from '../Home';
 
 const BuyProperty = () => {
     const [properties, setProperties] = useState([]);
     const [filterProperties, setFilterProperties] = useState([]);
+    const [test] = useState(PropertyData());
     const { isOpen, onOpen, onClose } = useDisclosure()
     const firstField = React.useRef()
     const [loading, setLoading] = useState(false);
     const [scale, setScale] = useState(false);
+    const [searchText, setSearchText] = useState("")
+    // const [testerprop, setTesterProp] = useState([])
+
+    const teest = async () => {
+        // test.then((res) => {
+        //     // setTesterProp(res).
+        //     console.log('teest res', res);
+
+        // })
+    }
+
+    console.log('tester', test);
+    // console.log('tester obj', testerprop);
 
     useEffect(() => {
+        teest()
         setLoading(true)
         let isCancelled = false;
         const runAsync = async () => {
@@ -236,10 +251,11 @@ const BuyProperty = () => {
     margin: 0 auto;
   `;
 
-    const searchedProperty = (event) => {
-        const searchText = event.target.value
-        const newResult = properties.filter(({ data }) => {
+    const searchedProperty = () => {
+        const newResult = properties.filter(({ data, id }) => {
             if ((data.purpose).toLowerCase().includes(searchText.toLowerCase())) {
+                return data
+            } else if ((id).toLowerCase().includes(searchText.toLowerCase())) {
                 return data
             } else if ((data.price).toLowerCase().includes(searchText.toLowerCase())) {
                 return data
@@ -251,7 +267,7 @@ const BuyProperty = () => {
                 return data
             }
 
-            return data
+            // return data
         })
 
         if (searchText === "") {
@@ -316,7 +332,7 @@ const BuyProperty = () => {
                         <DrawerOverlay>
                             <DrawerContent>
                                 <DrawerBody className="center">
-                                    <Input type="text" style={{ width: "100%" }} onChange={searchedProperty} placeholder="search (exp: house, flat, 1000000)" />
+                                    <Input type="text" onKeyUp={searchedProperty} style={{ width: "100%" }} value={searchText} onChange={(e) => setSearchText(e.target.value)} placeholder="search (exp: house, flat, 1000000)" />
                                 </DrawerBody>
                             </DrawerContent>
                         </DrawerOverlay>
@@ -324,6 +340,12 @@ const BuyProperty = () => {
                 </div>
 
             </div>
+
+            {/* <div>
+                {testerprop.map((item) => (
+                    <h1>{item.fields.city}</h1>
+                ))}
+            </div> */}
 
 
             <div className={scale ? "buypropContent mt p1 scaleLarge" : "buypropContent mt p1 scaleSmall"}>
